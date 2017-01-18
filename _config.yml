@@ -68,4 +68,10 @@ theme: landscape
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: git
+  repo: git@github.com:twitchax/twitchax.github.io.git
+  branch: master
+  message: Update to static site.
+  name: Aaron Roney
+  email: witchax@gmail.com
+  ignore_hidden: false # default is true
