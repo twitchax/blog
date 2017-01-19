@@ -3,16 +3,16 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
+title: AaRoney's Blog
 subtitle:
 description:
-author: John Doe
+author: Aaron Roney
 language:
 timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
+url: http://blog.twitchax.com/
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -73,5 +73,5 @@ deploy:
   branch: master
   message: Update to static site.
   name: Aaron Roney
-  email: witchax@gmail.com
+  email: twitchax@gmail.com
   ignore_hidden: false # default is true
