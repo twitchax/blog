@@ -4,10 +4,10 @@
 
 # Site
 title: AaRoney's Blog
-subtitle:
-description:
+subtitle: 
+description: Aaron Roney is a Senior Program Manager on the Azure Tools Team at Microsoft.
 author: Aaron Roney
-language:
+language: default
 timezone:
 
 # URL
@@ -34,14 +34,14 @@ titlecase: false # Transform title into titlecase
 external_link: true # Open external links in new tab
 filename_case: 0
 render_drafts: false
-post_asset_folder: false
+post_asset_folder: true
 relative_link: false
 future: true
 highlight:
   enable: true
   line_number: true
-  auto_detect: false
-  tab_replace:
+  auto_detect: true
+  tab_replace: true
 
 # Category & Tag
 default_category: uncategorized
@@ -75,3 +75,13 @@ deploy:
   name: Aaron Roney
   email: twitchax@gmail.com
   ignore_hidden: false # default is true
+
+# TOC
+toc:
+  maxdepth: 3
+  class: toc
+  slugify: uslug
+  anchor: false
+
+# Other
+disqus_shortname: twitchax-blog

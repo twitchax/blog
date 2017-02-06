@@ -50,7 +50,7 @@ widgets:
 # Miscellaneous
 google_analytics:
 favicon: /favicon.png
-twitter:
+twitter: twitchax
 google_plus:
 ```
 

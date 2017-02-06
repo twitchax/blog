@@ -25,12 +25,12 @@ index_widgets:
 
 # widget behavior
 archive_type: 'monthly'
-show_count: false
+show_count: true
 
 # Miscellaneous
-google_analytics:
+google_analytics: UA-91476707-1
 favicon: /favicon.png
-twitter:
+twitter: twitchax
 google_plus:
 fb_admins:
 fb_app_id:
