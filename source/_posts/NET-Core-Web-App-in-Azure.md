@@ -160,7 +160,7 @@ $ az appservice web source-control config-local-git
 https://twitchax@aarondemohelloapp.scm.azurewebsites.net/AaronDemoHelloApp.git
 ```
 
-However, we need to create a username and password for this deplyoment endpoint.  Let's set our deployment credentials through the Azure CLI.
+However, we need to create a username and password for this deployment endpoint.  Let's set our deployment credentials through the Azure CLI.
 
 ```bash
 az appservice web deployment user set 
