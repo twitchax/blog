@@ -1,0 +1,16 @@
+/Users/twitchax/OneDrive/Projects/blog/code/netcore_hello/bin/Debug/netcoreapp1.0/netcore_hello.deps.json
+/Users/twitchax/OneDrive/Projects/blog/code/netcore_hello/bin/Debug/netcoreapp1.0/netcore_hello.runtimeconfig.json
+/Users/twitchax/OneDrive/Projects/blog/code/netcore_hello/bin/Debug/netcoreapp1.0/netcore_hello.runtimeconfig.dev.json
+/Users/twitchax/OneDrive/Projects/blog/code/netcore_hello/obj/Debug/netcoreapp1.0/netcore_hello.AssemblyInfo.cs
+/Users/twitchax/OneDrive/Projects/blog/code/netcore_hello/bin/Debug/netcoreapp1.0/netcore_hello.dll
+/Users/twitchax/OneDrive/Projects/blog/code/netcore_hello/bin/Debug/netcoreapp1.0/netcore_hello.pdb
+/Users/twitchax/OneDrive/Projects/blog/code/netcore_hello/obj/Debug/netcoreapp1.0/netcore_hello.dll
+/Users/twitchax/OneDrive/Projects/blog/code/netcore_hello/obj/Debug/netcoreapp1.0/netcore_hello.pdb
+C:\Users\twitc\OneDrive\Projects\blog\code\netcore_hello\bin\Debug\netcoreapp1.0\netcore_hello.deps.json
+C:\Users\twitc\OneDrive\Projects\blog\code\netcore_hello\bin\Debug\netcoreapp1.0\netcore_hello.runtimeconfig.json
+C:\Users\twitc\OneDrive\Projects\blog\code\netcore_hello\bin\Debug\netcoreapp1.0\netcore_hello.runtimeconfig.dev.json
+C:\Users\twitc\OneDrive\Projects\blog\code\netcore_hello\obj\Debug\netcoreapp1.0\netcore_hello.AssemblyInfo.cs
+C:\Users\twitc\OneDrive\Projects\blog\code\netcore_hello\obj\Debug\netcoreapp1.0\netcore_hello.dll
+C:\Users\twitc\OneDrive\Projects\blog\code\netcore_hello\obj\Debug\netcoreapp1.0\netcore_hello.pdb
+C:\Users\twitc\OneDrive\Projects\blog\code\netcore_hello\bin\Debug\netcoreapp1.0\netcore_hello.dll
+C:\Users\twitc\OneDrive\Projects\blog\code\netcore_hello\bin\Debug\netcoreapp1.0\netcore_hello.pdb

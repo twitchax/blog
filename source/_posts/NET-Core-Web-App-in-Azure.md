@@ -1,5 +1,5 @@
 ---
-title: .NET Core Web App in Azure
+title: Build a .NET Core Web App in Azure
 date: 2017-02-03 15:49:24
 tags:
     - azure
@@ -29,9 +29,9 @@ Let's build a .NET Core Web App in Azure!  We will be performing all operations 
 
 ## Prerequisites
 
-* [Required] [.NET Core](https://www.microsoft.com/net/core).
-* [Required] [Azure Subscription](https://azure.microsoft.com/en-us/free/).
 * [Required] [Azure CLI](https://github.com/Azure/azure-cli) ([install guide](https://docs.microsoft.com/en-us/cli/azure/install-az-cli2)).
+* [Required] [.NET Core](https://www.microsoft.com/net/core) (1.0.0-rc4-004800).
+* [Required] [Azure Subscription](https://azure.microsoft.com/en-us/free/).
 * [Required] [git](https://git-scm.com/downloads).
 * [Visual Studio Code](https://code.visualstudio.com/).
 * [Bash On Windows](https://msdn.microsoft.com/en-us/commandline/wsl/about).
@@ -47,7 +47,7 @@ First, we are going to create a new .NET Web App.  I am going to make a simple "
 ```bash
 mkdir netcore_hello_world
 cd netcore_hello_world
-dotnet new -t Web
+dotnet new webapi
 ```
 
 Next, we need to test that our app works locally.
@@ -57,18 +57,20 @@ dotnet restore
 dotnet run
 ```
 
-At this point, your shell will block, and you can test your app by navigating to the URL specified (in my case, it is http://localhost:5000/).  Navigate to this URL, and you should see something like this.
+At this point, your shell will block, and you can test your app by navigating to the URL specified (in my case, it is http://localhost:5000/).  Navigate to the simple web api endpoint that is provided by default (i.e., http://localhost:5000/api/values), and you should see the expected response!
 
-{% asset_img default_app.png The default landing page for a new .NET Core Web App. %}
+```
+["value1","value2"]
+```
 
 ### Add a Web API endpoint
 
 I have always wanted to have a website respond to my name, so I am going to add a Web API enpoint to my app which will respond the way I want.  You can add any endpoint you would like here, so have it respond in Klingon: it's your app, do what you want.
 
-Awesomely enough, ASP.NET Core web apps have Web API routing built in.  In the `Controllers` directory, all I need do is simply emulate `HomeController.cs` to some degree.  My new controller is going to be pretty simple since I just want to say "hello".  So, I simply create a new controller (`Controllers/ApiController.cs`), and I add my controller class to it (usings and namespace ommitted).
+Awesomely enough, ASP.NET Core web apps have Web API routing built in.  In the `Controllers` directory, all I need do is simply emulate `ValuesController.cs` to some degree.  My new controller is going to be pretty simple since I just want to say "hello".  So, I simply create a new controller (`Controllers/HelloController.cs`), and I add my controller class to it (usings and namespace ommitted).
 
 ```csharp
-public class ApiController : Controller
+public class HelloController : Controller
 {
     [HttpGet]
     [Route("api/hello/{name}")]

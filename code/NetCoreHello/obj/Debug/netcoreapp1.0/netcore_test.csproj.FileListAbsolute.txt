@@ -1,0 +1,16 @@
+/Users/twitchax/OneDrive/Projects/blog/code/netcore_test/bin/Debug/netcoreapp1.0/netcore_test.deps.json
+/Users/twitchax/OneDrive/Projects/blog/code/netcore_test/bin/Debug/netcoreapp1.0/netcore_test.runtimeconfig.json
+/Users/twitchax/OneDrive/Projects/blog/code/netcore_test/bin/Debug/netcoreapp1.0/netcore_test.runtimeconfig.dev.json
+/Users/twitchax/OneDrive/Projects/blog/code/netcore_test/bin/Debug/netcoreapp1.0/netcore_test.dll
+/Users/twitchax/OneDrive/Projects/blog/code/netcore_test/bin/Debug/netcoreapp1.0/netcore_test.pdb
+/Users/twitchax/OneDrive/Projects/blog/code/netcore_test/obj/Debug/netcoreapp1.0/netcore_test.AssemblyInfo.cs
+/Users/twitchax/OneDrive/Projects/blog/code/netcore_test/obj/Debug/netcoreapp1.0/netcore_test.dll
+/Users/twitchax/OneDrive/Projects/blog/code/netcore_test/obj/Debug/netcoreapp1.0/netcore_test.pdb
+/Users/twitchax/OneDrive/Projects/blog/code/netcore_hello/bin/Debug/netcoreapp1.0/netcore_test.deps.json
+/Users/twitchax/OneDrive/Projects/blog/code/netcore_hello/bin/Debug/netcoreapp1.0/netcore_test.runtimeconfig.json
+/Users/twitchax/OneDrive/Projects/blog/code/netcore_hello/bin/Debug/netcoreapp1.0/netcore_test.runtimeconfig.dev.json
+/Users/twitchax/OneDrive/Projects/blog/code/netcore_hello/bin/Debug/netcoreapp1.0/netcore_test.dll
+/Users/twitchax/OneDrive/Projects/blog/code/netcore_hello/bin/Debug/netcoreapp1.0/netcore_test.pdb
+/Users/twitchax/OneDrive/Projects/blog/code/netcore_hello/obj/Debug/netcoreapp1.0/netcore_test.AssemblyInfo.cs
+/Users/twitchax/OneDrive/Projects/blog/code/netcore_hello/obj/Debug/netcoreapp1.0/netcore_test.dll
+/Users/twitchax/OneDrive/Projects/blog/code/netcore_hello/obj/Debug/netcoreapp1.0/netcore_test.pdb
