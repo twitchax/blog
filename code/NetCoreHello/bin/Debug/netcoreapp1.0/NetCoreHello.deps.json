@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v1.0",
-    "signature": "b5b39abcf49c4a5b83a6083fd7152c1bc0e5b719"
+    "signature": "9815e25c5366432d501e4f64c5b676a19c4c9120"
   },
   "compilationOptions": {
     "defines": [
@@ -23,7 +23,7 @@
     ".NETCoreApp,Version=v1.0": {
       "netcorehello/1.0.0": {
         "dependencies": {
-          "DocumentDb.Fluent": "1.0.0",
+          "DocumentDb.Fluent": "1.2.1",
           "Microsoft.AspNetCore": "1.0.3",
           "Microsoft.AspNetCore.Mvc": "1.0.2",
           "Microsoft.Extensions.Logging.Debug": "1.0.1",
@@ -36,7 +36,7 @@
           "NetCoreHello.dll": {}
         }
       },
-      "documentdb.fluent/1.0.0": {
+      "documentdb.fluent/1.2.1": {
         "dependencies": {
           "Microsoft.Azure.DocumentDB.Core": "1.0.0",
           "NETStandard.Library": "1.6.0"
@@ -3051,12 +3051,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "documentdb.fluent/1.0.0": {
+    "documentdb.fluent/1.2.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-6pn7nTZCfL9k13rZ2Lk07LirwtxrPci7LoTBTb7K1ehWXwBEgxbg3MyBgHyI58RdoftUxJhMmXqFXkIS2YCZcw==",
-      "path": "documentdb.fluent/1.0.0",
-      "hashPath": "documentdb.fluent.1.0.0.nupkg.sha512"
+      "sha512": "sha512-J7cep98O90kJZ00+LRb2D4KO15A6tb+n/DzoeJW3X5BnZ5TDGQiLmpHMJBylktFi263awDwodpXU5u/BUS/E7Q==",
+      "path": "documentdb.fluent/1.2.1",
+      "hashPath": "documentdb.fluent.1.2.1.nupkg.sha512"
     },
     "microsoft.aspnetcore/1.0.3": {
       "type": "package",

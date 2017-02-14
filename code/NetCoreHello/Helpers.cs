@@ -7,7 +7,9 @@ namespace NetCoreHello
         private const string EndpointUri = "https://friendsdocdb.documents.azure.com:443/";
         private const string PrimaryKey = "42GozGHCJi4UPTLPCmXcesuwJqOiUtftNB8u55jficIRpv5IuC6KIKf3uL2hnxzCWUVvZd43LTKPnCotXGFpTw==";
         
-        public static IDocumentCollection<Friend> FriendCollection => DocumentDb.Fluent.DocumentDbInstance.Connect(EndpointUri, PrimaryKey).Database("Db").Collection<Friend>("Friends");
+        public static IDocumentDbInstance DocumentDb => DocumentDbInstance.Connect(EndpointUri, PrimaryKey);
+        public static IDatabase Db = DocumentDb.Database("Db");
+        public static IDocumentCollection<Friend> Friends => Db.Collection<Friend>("Friends");
     }
 
     public class Friend : HasId

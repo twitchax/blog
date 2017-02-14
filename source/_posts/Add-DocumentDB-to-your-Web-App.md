@@ -8,6 +8,7 @@ tags:
     - csharp
     - microsoft
     - documentdb
+    - docker
 categories:
     - Built with Azure Tools
 ---
@@ -29,9 +30,11 @@ Let's build add Add [DocumentDB](https://azure.microsoft.com/en-us/services/docu
 
 # Build
 
+> NOTE: all command statements with multiple lines ignore the need for a newline escape.
+
 ## Create a DocumentDB with Azure CLI
 
-DocumentDB is one of the cutting edge features available in the Azure CLI, so we need to use a nightly ([it's on the way](https://github.com/Azure/azure-cli/pull/1815)).  I am going to use [Docker](https://www.docker.com/) to keep the latest version of Azure CLI separate from my system configuration.
+DocumentDB is one of the cutting edge features available in the Azure CLI, so we need to use a nightly ([it's on the way](https://github.com/Azure/azure-cli/pull/1815)).  I am going to use [Docker](https://www.docker.com/) to keep the latest version of Azure CLI separate from my system configuration.  However, if you prever to use the latest build on your machine without Docker, you can [install the nightly](https://github.com/Azure/azure-cli#nightly-builds).
 
 ```bash
 docker run -it azuresdk/azure-cli-python:latest
@@ -86,11 +89,10 @@ public static class Helpers
     private const string EndpointUri = "<your_endpoint_uri>";
     private const string PrimaryKey = "<your_primary_key>";
     
-    public static IDocumentCollection<Friend> FriendCollection => 
-        DocumentDb.Fluent.DocumentDbInstance
-            .Connect(EndpointUri, PrimaryKey)
-            .Database("Db")
-            .Collection<Friend>("Friends");
+    public static IDocumentDbInstance DocumentDb => 
+        DocumentDbInstance.Connect(EndpointUri, PrimaryKey);
+    public static IDatabase Db = DocumentDb.Database("Db");
+    public static IDocumentCollection<Friend> Friends => Db.Collection<Friend>();
 }
 
 public class Friend : HasId
@@ -111,56 +113,113 @@ public class FriendsController : Controller
     [HttpGet]
     public IActionResult Get()
     {
-        return Ok(Helpers.FriendCollection.Query);
+        return Ok(Helpers.Friends.Query);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(string id)
     {
-        var friend = await Helpers.FriendCollection.Document(id).ReadAsync();
-
+        var friend = await Helpers.Friends.Document(id).ReadAsync();
         return Ok(friend);
     }
 
     [HttpPost]
     public async Task<IActionResult> Post([FromBody]Friend friend)
     {
-        var doc = await Helpers.FriendCollection.Document().CreateAsync(friend);
+        var doc = await Helpers.Friends.Document().CreateAsync(friend);
         friend.Id = doc.Id;
-        
         return Created(doc.Id.ToString(), friend);
     }
 
     [HttpPut("{id}")]
     public async Task<IActionResult> Put(string id, [FromBody]Friend friend)
     {
-        await Helpers.FriendCollection.Document(id).UpdateAsync(friend);
-
+        await Helpers.Friends.Document(id).UpdateAsync(friend);
         return Ok();
     }
 
     [HttpDelete]
     public async Task<IActionResult> Delete()
     {
-        await Helpers.FriendCollection.ClearAsync();
-
+        await Helpers.Friends.ClearAsync();
         return Ok();
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(string id)
     {
-        await Helpers.FriendCollection.Document(id).DeleteAsync();
-        
+        await Helpers.Friends.Document(id).DeleteAsync();
         return Ok();
     }
 }
 ```
 
-**Optional: pretty print JSON.**  Add a formatter in `Startup.cs` that looks like this.
+**Optional:** to pretty print JSON, add a formatter to the middleware in `Startup.cs` that looks like this.
 
-```csharp
+```csharp 
 services.AddMvc().AddJsonOptions(options => {
     options.SerializerSettings.Formatting = Formatting.Indented;
 });
 ```
+
+## Test
+
+You can use whatever method you prefer to test your new web app interaction with DocumentDB.  In my case, I am using `curl` with [Bash On Windows](https://msdn.microsoft.com/en-us/commandline/wsl/about).
+
+Get friends.
+
+```bash
+$ curl http://localhost:5000/api/friends
+[]
+```
+
+Add friend.
+
+```bash
+$ curl -H "Content-Type: application/json" -X POST 
+      -d '{ "name": "Chelsey", "email": "an@email.com" }' 
+      http://localhost:5000/api/friends
+{
+  "name": "Chelsey",
+  "email": "an@email.com",
+  "id": "d98ebc3f-67df-4152-a15a-1ad32d473ad1"
+}
+```
+
+Update friend.
+
+```bash
+$ curl -H "Content-Type: application/json" -X PUT 
+      -d '{ "name": "Chelsey", "email": "new@email.com" }' 
+      http://localhost:5000/api/friends/d98ebc3f-67df-4152-a15a-1ad32d473ad1
+```
+
+Delete one friend.
+
+```bash
+$ curl -H "Content-Type: application/json" -X DELETE 
+      http://localhost:5000/api/friends/d98ebc3f-67df-4152-a15a-1ad32d473ad1
+```
+
+Delete all friends.
+
+```bash
+$ curl -H "Content-Type: application/json" -X DELETE 
+      http://localhost:5000/api/friends
+```
+
+## Deploy
+
+Just as we did when we built our app, we can {% post_link NET-Core-Web-App-in-Azure deploy these changes to Azure with git %}.
+
+```bash
+# Push this deploy directory to Azure.
+git push azure master
+
+# Restart the app service (optional).
+az appservice web restart -g DemoGroup -n AaronDemoHelloApp
+```
+
+# Done
+
+That's it!  In about 10 minutes, we have added DocumentDB functionality to our web app!

@@ -11,47 +11,42 @@ namespace NetCoreHello.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(Helpers.FriendCollection.Query);
+            return Ok(Helpers.Friends.Query);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(string id)
         {
-            var friend = await Helpers.FriendCollection.Document(id).ReadAsync();
-
+            var friend = await Helpers.Friends.Document(id).ReadAsync();
             return Ok(friend);
         }
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]Friend friend)
         {
-            var doc = await Helpers.FriendCollection.Document().CreateAsync(friend);
+            var doc = await Helpers.Friends.Document().CreateAsync(friend);
             friend.Id = doc.Id;
-            
             return Created(doc.Id.ToString(), friend);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(string id, [FromBody]Friend friend)
         {
-            await Helpers.FriendCollection.Document(id).UpdateAsync(friend);
-
+            await Helpers.Friends.Document(id).UpdateAsync(friend);
             return Ok();
         }
 
         [HttpDelete]
         public async Task<IActionResult> Delete()
         {
-            await Helpers.FriendCollection.ClearAsync();
-
+            await Helpers.Friends.ClearAsync();
             return Ok();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {
-            await Helpers.FriendCollection.Document(id).DeleteAsync();
-            
+            await Helpers.Friends.Document(id).DeleteAsync();
             return Ok();
         }
     }

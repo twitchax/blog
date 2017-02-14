@@ -9,6 +9,13 @@ namespace MvcApp.Controllers
     public class HelloController : Controller
     {
         [HttpGet]
+        [Route("/")]
+        public IActionResult ServerRunning(string name)
+        {
+            return this.Ok("Server running!");
+        }
+
+        [HttpGet]
         [Route("api/hello/{name}")]
         public IActionResult SayHello(string name)
         {

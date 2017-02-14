@@ -38,6 +38,8 @@ Let's build a .NET Core Web App in Azure!  We will be performing all operations 
 
 # Build
 
+> NOTE: all command statements with multiple lines ignore the need for a newline escape.
+
 ## Create a .NET Core Web App
 
 ### Create the app
@@ -111,8 +113,7 @@ If "Drumpf" tries, we will get the expected error result (i.e., `Drumpf?...Reall
 
 ```bash
 az login
-az account set 
-    --subscription "Aaron Personal (MSDN)"
+az account set --subscription "Aaron Personal (MSDN)"
 ```
 
 ### Create a new web app on Azure
@@ -121,30 +122,19 @@ Using the Azure CLI, we can easily create a new web app instance on Azure.
 
 ```bash
 # Create a demo group for cleanup.
-az group create 
-    -l westus 
-    -n DemoGroup 
+az group create -l westus -n DemoGroup 
 
 # Create a shared app service plan ($10 / month).
-az appservice plan create 
-    -g DemoGroup 
-    -n DemoAppPlan 
-    --sku D1 # F1 for free tier (no custom domains).
+az appservice plan create -g DemoGroup -n DemoAppPlan --sku D1 # F1 for free tier.
 
 # Name must be unique to all of Azure.
-az appservice web create 
-    -g DemoGroup 
-    -p DemoAppPlan 
-    -n AaronDemoHelloApp 
+az appservice web create -g DemoGroup -p DemoAppPlan -n AaronDemoHelloApp 
 ```
 
 Now, we can verify the host name of our newly created app.
 
 ```bash
-$ az appservice web show 
-    -g DemoGroup 
-    -n AaronDemoHelloApp 
-    --query hostNames --out tsv
+$ az appservice web show -g DemoGroup -n AaronDemoHelloApp --query hostNames --out tsv
 aarondemohelloapp.azurewebsites.net
 ```
 
@@ -155,18 +145,14 @@ Navigating to this address (i.e., http://aarondemohelloapp.azurewebsites.net/) y
 At the moment, we are just eager to get our app up on Azure.  For now, we will configure deployment using local git.
 
 ```bash
-$ az appservice web source-control config-local-git 
-    -g DemoGroup 
-    -n AaronDemoHelloApp 
-    --out tsv
+$ az appservice web source-control config-local-git -g DemoGroup -n AaronDemoHelloApp --out tsv
 https://twitchax@aarondemohelloapp.scm.azurewebsites.net/AaronDemoHelloApp.git
 ```
 
 However, we need to create a username and password for this deployment endpoint.  Let's set our deployment credentials through the Azure CLI.
 
 ```bash
-az appservice web deployment user set 
-    --user-name twitchax
+az appservice web deployment user set --user-name twitchax
 ```
 
 You will be prompted to set a password, and that's it for deployment authentication!
@@ -186,9 +172,7 @@ git remote add azure https://twitchax@aarondemohelloapp.scm.azurewebsites.net/Aa
 git push azure master
 
 # Restart the app service (optional).
-az appservice web restart 
-    -g DemoGroup 
-    -n AaronDemoHelloApp
+az appservice web restart -g DemoGroup -n AaronDemoHelloApp
 ```
 
 ### Revel in your awesomeness
@@ -216,9 +200,7 @@ I added a CNAME record for `helloapp.twitchax.com` to `aarondemohelloapp.azurewe
 Azure requires that we specify which custom domains are allowed to point to our web app.  So, back to the trusty Azure CLI, and we can bind to our custom domain name with one, simple command.
 
 ```bash
-az appservice web config hostname add 
-    -g DemoGroup 
-    --webapp AaronDemoHelloApp 
+az appservice web config hostname add -g DemoGroup --webapp AaronDemoHelloApp 
     -n helloapp.twitchax.com
 ```
 
