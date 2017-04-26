@@ -1,11 +1,10 @@
----
 title: 'Issue 1: Marbury v. Madison, 5 U.S. (1 Cranch) 137 (1803)'
-date: 2016-05-01 14:00:00
 tags:
-    - scotus
-    - supreme court
+  - scotus
+  - supreme court
 categories:
-    - The Supreme Court is Usually Badass
+  - The Supreme Court is Usually Badass
+date: 2016-05-01 14:00:00
 ---
 
 <!-- toc -->
