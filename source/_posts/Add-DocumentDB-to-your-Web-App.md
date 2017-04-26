@@ -1,16 +1,16 @@
----
 title: Add DocumentDB to your Web App
-date: 2017-02-11 17:49:10
 tags:
-    - azure
-    - dotnet
-    - azure-cli
-    - csharp
-    - microsoft
-    - documentdb
-    - docker
+  - azure
+  - dotnet
+  - azure-cli
+  - csharp
+  - microsoft
+  - documentdb
+  - docker
 categories:
-    - Built with Azure Tools
+  - Built with Azure Tools
+author: Aaron Roney
+date: 2017-02-11 17:49:00
 ---
 
 <!-- toc -->

@@ -1,11 +1,13 @@
----
-title: 'Issue 3: George W. Bush and Richard Cheney, Petitioners v. Albert Gore, Jr. and Joseph Lieberman, et al.'
-date: 2016-07-01 14:00:00
+title: >-
+  Issue 3: George W. Bush and Richard Cheney, Petitioners v. Albert Gore, Jr.
+  and Joseph Lieberman, et al.
 tags:
-    - scotus
-    - supreme court
+  - scotus
+  - supreme court
 categories:
-    - The Supreme Court is Usually Badass
+  - The Supreme Court is Usually Badass
+author: Aaron Roney
+date: 2016-07-01 14:00:00
 ---
 
 <!-- toc -->

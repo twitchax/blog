@@ -1,15 +1,15 @@
----
 title: Build a .NET Core Web App in Azure
-date: 2017-02-03 15:49:24
 tags:
-    - azure
-    - dotnet
-    - azure-cli
-    - vscode
-    - csharp
-    - microsoft
+  - azure
+  - dotnet
+  - azure-cli
+  - csharp
+  - microsoft
+  - vscode
 categories:
-    - Built with Azure Tools
+  - Built with Azure Tools
+author: Aaron Roney
+date: 2017-02-03 15:49:00
 ---
 
 {% raw %}

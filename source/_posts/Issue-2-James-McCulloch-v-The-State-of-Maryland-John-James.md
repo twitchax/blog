@@ -1,11 +1,11 @@
----
 title: 'Issue 2: James McCulloch v. The State of Maryland, John James'
-date: 2016-06-01 14:00:00
 tags:
-    - scotus
-    - supreme court
+  - scotus
+  - supreme court
 categories:
-    - The Supreme Court is Usually Badass
+  - The Supreme Court is Usually Badass
+author: Aaron Roney
+date: 2016-06-01 14:00:00
 ---
 
 <!-- toc -->
