@@ -12,12 +12,11 @@ categories:
 author: Aaron Roney
 date: 2017-02-11 17:49:00
 ---
-
 <!-- toc -->
 
 # Introduction
 
-Let's build add Add [DocumentDB](https://azure.microsoft.com/en-us/services/documentdb/) to your Web App!  We will be performing all operations using the [Azure CLI](https://github.com/Azure/azure-cli), and all of our work will be built using [Visual Studio Code](https://code.visualstudio.com/) on [Bash On Windows](https://msdn.microsoft.com/en-us/commandline/wsl/about), Linux, Mac OS, or a container (we'll containerize our app in a few weeks).  If you have not already, make sure you have a {% post_link NET-Core-Web-App-in-Azure .NET Core Web App %} ready to go!
+Let's add [DocumentDB](https://azure.microsoft.com/en-us/services/documentdb/) to your Web App!  We will be performing all operations using the [Azure CLI](https://github.com/Azure/azure-cli), and all of our work will be built using [Visual Studio Code](https://code.visualstudio.com/) on [Bash On Windows](https://msdn.microsoft.com/en-us/commandline/wsl/about), Linux, Mac OS, or a container (we'll containerize our app in a few weeks).  If you have not already, make sure you have a {% post_link NET-Core-Web-App-in-Azure .NET Core Web App %} ready to go!
 
 
 ## Prerequisites
