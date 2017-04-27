@@ -20,85 +20,71 @@ Create VM.
 
 ```powershell
 # Variables for common values
-$resourceGroup = "myResourceGroup"
-$location = "westeurope"
-$vmName = "myVM"
+$ $resourceGroup = "myResourceGroup"
+$ $location = "westeurope"
+$ $vmName = "myVM"
 
 # Create user object
-$cred = Get-Credential -Message "Enter a username and password for the virtual machine."
+$ $cred = Get-Credential -Message "Enter a username and password for the virtual machine."
 
 # Create a resource group
-New-AzureRmResourceGroup -Name $resourceGroup -Location $location
+$ New-AzureRmResourceGroup -Name $resourceGroup -Location $location
 
 # Create a subnet configuration
-$subnetConfig = New-AzureRmVirtualNetworkSubnetConfig -Name mySubnet -AddressPrefix 192.168.1.0/24
+$ $subnetConfig = New-AzureRmVirtualNetworkSubnetConfig -Name mySubnet -AddressPrefix 192.168.1.0/24
 
 # Create a virtual network
-$vnet = New-AzureRmVirtualNetwork -ResourceGroupName $resourceGroup -Location $location `
-  -Name MYvNET -AddressPrefix 192.168.0.0/16 -Subnet $subnetConfig
+$ $vnet = New-AzureRmVirtualNetwork -ResourceGroupName $resourceGroup -Location $location -Name MYvNET -AddressPrefix 192.168.0.0/16 -Subnet $subnetConfig
 
 # Create a public IP address and specify a DNS name
-$pip = New-AzureRmPublicIpAddress -ResourceGroupName $resourceGroup -Location $location `
-  -Name "mypublicdns$(Get-Random)" -AllocationMethod Static -IdleTimeoutInMinutes 4
+$ $pip = New-AzureRmPublicIpAddress -ResourceGroupName $resourceGroup -Location $location -Name "mypublicdns$(Get-Random)" -AllocationMethod Static -IdleTimeoutInMinutes 4
 
 # Create an inbound network security group rule for port 3389
-$nsgRuleRDP = New-AzureRmNetworkSecurityRuleConfig -Name myNetworkSecurityGroupRuleRDP  -Protocol Tcp `
-  -Direction Inbound -Priority 1000 -SourceAddressPrefix * -SourcePortRange * -DestinationAddressPrefix * `
-  -DestinationPortRange 3389 -Access Allow
+$ $nsgRuleRDP = New-AzureRmNetworkSecurityRuleConfig -Name myNetworkSecurityGroupRuleRDP  -Protocol Tcp -Direction Inbound -Priority 1000 -SourceAddressPrefix * -SourcePortRange * -DestinationAddressPrefix * -DestinationPortRange 3389 -Access Allow
 
 # Create a network security group
-$nsg = New-AzureRmNetworkSecurityGroup -ResourceGroupName $resourceGroup -Location $location `
-  -Name myNetworkSecurityGroup -SecurityRules $nsgRuleRDP
+$ $nsg = New-AzureRmNetworkSecurityGroup -ResourceGroupName $resourceGroup -Location $location -Name myNetworkSecurityGroup -SecurityRules $nsgRuleRDP
 
 # Create a virtual network card and associate with public IP address and NSG
-$nic = New-AzureRmNetworkInterface -Name myNic -ResourceGroupName $resourceGroup -Location $location `
-  -SubnetId $vnet.Subnets[0].Id -PublicIpAddressId $pip.Id -NetworkSecurityGroupId $nsg.Id
+$ $nic = New-AzureRmNetworkInterface -Name myNic -ResourceGroupName $resourceGroup -Location $location -SubnetId $vnet.Subnets[0].Id -PublicIpAddressId $pip.Id -NetworkSecurityGroupId $nsg.Id
 
 # Create a virtual machine configuration
-$vmConfig = New-AzureRmVMConfig -VMName $vmName -VMSize Standard_D1 | `
-Set-AzureRmVMOperatingSystem -Windows -ComputerName $vmName -Credential $cred | `
-Set-AzureRmVMSourceImage -PublisherName MicrosoftWindowsServer -Offer WindowsServer -Skus 2016-Datacenter -Version latest | `
-Add-AzureRmVMNetworkInterface -Id $nic.Id
+$ $vmConfig = New-AzureRmVMConfig -VMName $vmName -VMSize Standard_D1 | Set-AzureRmVMOperatingSystem -Windows -ComputerName $vmName -Credential $cred | Set-AzureRmVMSourceImage -PublisherName MicrosoftWindowsServer -Offer WindowsServer -Skus 2016-Datacenter -Version latest | Add-AzureRmVMNetworkInterface -Id $nic.Id
 
 # Create a virtual machine
-New-AzureRmVM -ResourceGroupName $resourceGroup -Location $location -VM $vmConfig
+$ New-AzureRmVM -ResourceGroupName $resourceGroup -Location $location -VM $vmConfig
 ```
 
 Create and deploy web app.
 
 ```powershell
-$gitdirectory="<Replace with path to local Git repo>"
-$webappname="mywebapp$(Get-Random)"
-$location="West Europe"
+$ $gitdirectory="<Replace with path to local Git repo>"
+$ $webappname="mywebapp$(Get-Random)"
+$ $location="West Europe"
 
 # Create a resource group.
-New-AzureRmResourceGroup -Name myResourceGroup -Location $location
+$ New-AzureRmResourceGroup -Name myResourceGroup -Location $location
 
 # Create an App Service plan in `Free` tier.
-New-AzureRmAppServicePlan -Name $webappname -Location $location `
--ResourceGroupName myResourceGroup -Tier Free
+$ New-AzureRmAppServicePlan -Name $webappname -Location $location -ResourceGroupName myResourceGroup -Tier Free
 
 # Create a web app.
-New-AzureRmWebApp -Name $webappname -Location $location -AppServicePlan $webappname `
--ResourceGroupName myResourceGroup
+$ New-AzureRmWebApp -Name $webappname -Location $location -AppServicePlan $webappname -ResourceGroupName myResourceGroup
 
 # Configure GitHub deployment from your GitHub repo and deploy once.
-$PropertiesObject = @{
+$ $PropertiesObject = @{
     scmType = "LocalGit";
 }
-Set-AzureRmResource -PropertyObject $PropertiesObject -ResourceGroupName myResourceGroup `
--ResourceType Microsoft.Web/sites/config -ResourceName $webappname/web `
--ApiVersion 2015-08-01 -Force
+$ Set-AzureRmResource -PropertyObject $PropertiesObject -ResourceGroupName myResourceGroup -ResourceType Microsoft.Web/sites/config -ResourceName $webappname/web -ApiVersion 2015-08-01 -Force
 
 # Get app-level deployment credentials
-$xml = (Get-AzureRmWebAppPublishingProfile -Name $webappname -ResourceGroupName myResourceGroup `
--OutputFile null)
-$username = $xml.SelectNodes("//publishProfile[@publishMethod=`"MSDeploy`"]/@userName").value
-$password = $xml.SelectNodes("//publishProfile[@publishMethod=`"MSDeploy`"]/@userPWD").value
+$ $xml = (Get-AzureRmWebAppPublishingProfile -Name $webappname -ResourceGroupName myResourceGroup -OutputFile null)
+$ $username = $xml.SelectNodes("//publishProfile[@publishMethod=`"MSDeploy`"]/@userName").value
+$ $password = $xml.SelectNodes("//publishProfile[@publishMethod=`"MSDeploy`"]/@userPWD").value
 
 # Add the Azure remote to your local Git respository and push your code
 #### This method saves your password in the git remote. You can use a Git credential manager to secure your password instead.
-git remote add azure "https://${username}:$password@$webappname.scm.azurewebsites.net"
+$ git remote add azure "https://${username}:$password@$webappname.scm.azurewebsites.net"
 git push azure master
 ```
 
@@ -148,7 +134,7 @@ No good web app story for PowerShell.
 Create a web app.
 
 ```bash
-$  heroku create
+$ heroku create
 
 Creating falling-wind-1624... done, stack is cedar-14
 http://falling-wind-1624.herokuapp.com/ | https://git.heroku.com/falling-wind-1624.git
@@ -224,8 +210,8 @@ Other strategy ideas:
 
 ```powershell
 # In this sample, we show the fact that resource group is a "gray" parameter.
-PS> Login-AzAccount
-PS> New-AzVm -Name MyVm -Image UbuntuLTS
+$ Login-AzAccount
+$ New-AzVm -Name MyVm -Image UbuntuLTS
 
 A resource group was not specified: would you like to create MyVmRg12345 (Y/n)? Y
 
@@ -245,9 +231,9 @@ The user should be able to specify certain global defaults, e.g., resource group
 
 ```powershell
 # In this sample, we show the user what smart defaults were selected.
-PS> Login-Az
-PS> New-AzRg MyRg | Set-AzDefaultRg
-PS> New-AzVm -Name MyVm -Image UbuntuLTS
+$ Login-Az
+$ New-AzRg MyRg | Set-AzDefaultRg
+$ New-AzVm -Name MyVm -Image UbuntuLTS
 
 Selected Defaults:
   NIC: NicName.
@@ -267,9 +253,9 @@ Smart defaults would be chosen.  For example, a "free" plan should be the defaul
 
 ```powershell
 # In this sample, we show the fact that plan is a "gray" parameter.
-PS> Login-Az
-PS> New-AzRg MyRg | Set-AzDefaultRg
-PS> New-AzWeb -Name MyWebApp
+$ Login-Az
+$ New-AzRg MyRg | Set-AzDefaultRg
+$ New-AzWeb -Name MyWebApp
 
 A web app plan was not specified: would you like to create a free plan MyWebAppPlan (Y/n)? Y
 
@@ -284,9 +270,9 @@ Done!
 
 ```powershell
 # In this sample, we show optional parameters which assist in a later deploy.
-PS> Login-Az
-PS> New-AzRg MyRg | Set-AzDefaultRg
-PS> New-AzWeb -Name MyWebApp -Plan MyWebAppPlan -AddRemote -Deploy
+$ Login-Az
+$ New-AzRg MyRg | Set-AzDefaultRg
+$ New-AzWeb -Name MyWebApp -Plan MyWebAppPlan -AddRemote -Deploy
 
 {A bunch of git output...}
 
@@ -295,12 +281,12 @@ Done!
 
 ```powershell
 # This sample gets the deployment endpoint (not trivial currently) and deploys.
-PS> Login-Az
-PS> New-AzRg MyRg | Set-AzDefaultRg
-PS> New-AzWeb -Name MyWebApp -Plan MyWebAppPlan
-PS> $endpoint = Get-AzWebScm -Name MyWebApp
-PS> git remote add azure $endpoint
-PS> git push azure master
+$ Login-Az
+$ New-AzRg MyRg | Set-AzDefaultRg
+$ New-AzWeb -Name MyWebApp -Plan MyWebAppPlan
+$ $endpoint = Get-AzWebScm -Name MyWebApp
+$ git remote add azure $endpoint
+$ git push azure master
 ```
 
 ### Storage scenarios?
@@ -314,9 +300,9 @@ PS> git push azure master
 ### Function app awesomeness?
 
 ```powershell
-PS> Login-Az
-PS> New-AzRg MyRg | Set-AzDefaultRg
-PS> New-AzFunction -AppName MyFunctionApp -Source myFunction.js
+$ Login-Az
+$ New-AzRg MyRg | Set-AzDefaultRg
+$ New-AzFunction -AppName MyFunctionApp -Source myFunction.js
 ```
 
 # Conclusion

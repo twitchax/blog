@@ -52,48 +52,39 @@ This lack of emphasis on quality by resource providers without a strong review p
 
 ```powershell
 # Variables for common values
-$resourceGroup = "myResourceGroup"
-$location = "westeurope"
-$vmName = "myVM"
+$ $resourceGroup = "myResourceGroup"
+$ $location = "westeurope"
+$ $vmName = "myVM"
 
 # Create user object
-$cred = Get-Credential -Message "Enter a username and password for the virtual machine."
+$ $cred = Get-Credential -Message "Enter a username and password for the virtual machine."
 
 # Create a resource group
-New-AzureRmResourceGroup -Name $resourceGroup -Location $location
+$ New-AzureRmResourceGroup -Name $resourceGroup -Location $location
 
 # Create a subnet configuration
-$subnetConfig = New-AzureRmVirtualNetworkSubnetConfig -Name mySubnet -AddressPrefix 192.168.1.0/24
+$ $subnetConfig = New-AzureRmVirtualNetworkSubnetConfig -Name mySubnet -AddressPrefix 192.168.1.0/24
 
 # Create a virtual network
-$vnet = New-AzureRmVirtualNetwork -ResourceGroupName $resourceGroup -Location $location `
-  -Name MYvNET -AddressPrefix 192.168.0.0/16 -Subnet $subnetConfig
+$ $vnet = New-AzureRmVirtualNetwork -ResourceGroupName $resourceGroup -Location $location -Name MYvNET -AddressPrefix 192.168.0.0/16 -Subnet $subnetConfig
 
 # Create a public IP address and specify a DNS name
-$pip = New-AzureRmPublicIpAddress -ResourceGroupName $resourceGroup -Location $location `
-  -Name "mypublicdns$(Get-Random)" -AllocationMethod Static -IdleTimeoutInMinutes 4
+$ $pip = New-AzureRmPublicIpAddress -ResourceGroupName $resourceGroup -Location $location -Name "mypublicdns$(Get-Random)" -AllocationMethod Static -IdleTimeoutInMinutes 4
 
 # Create an inbound network security group rule for port 3389
-$nsgRuleRDP = New-AzureRmNetworkSecurityRuleConfig -Name myNetworkSecurityGroupRuleRDP  -Protocol Tcp `
-  -Direction Inbound -Priority 1000 -SourceAddressPrefix * -SourcePortRange * -DestinationAddressPrefix * `
-  -DestinationPortRange 3389 -Access Allow
+$ $nsgRuleRDP = New-AzureRmNetworkSecurityRuleConfig -Name myNetworkSecurityGroupRuleRDP  -Protocol Tcp -Direction Inbound -Priority 1000 -SourceAddressPrefix * -SourcePortRange * -DestinationAddressPrefix * -DestinationPortRange 3389 -Access Allow
 
 # Create a network security group
-$nsg = New-AzureRmNetworkSecurityGroup -ResourceGroupName $resourceGroup -Location $location `
-  -Name myNetworkSecurityGroup -SecurityRules $nsgRuleRDP
+$ $nsg = New-AzureRmNetworkSecurityGroup -ResourceGroupName $resourceGroup -Location $location -Name myNetworkSecurityGroup -SecurityRules $nsgRuleRDP
 
 # Create a virtual network card and associate with public IP address and NSG
-$nic = New-AzureRmNetworkInterface -Name myNic -ResourceGroupName $resourceGroup -Location $location `
-  -SubnetId $vnet.Subnets[0].Id -PublicIpAddressId $pip.Id -NetworkSecurityGroupId $nsg.Id
+$ $nic = New-AzureRmNetworkInterface -Name myNic -ResourceGroupName $resourceGroup -Location $location -SubnetId $vnet.Subnets[0].Id -PublicIpAddressId $pip.Id -NetworkSecurityGroupId $nsg.Id
 
 # Create a virtual machine configuration
-$vmConfig = New-AzureRmVMConfig -VMName $vmName -VMSize Standard_D1 | `
-Set-AzureRmVMOperatingSystem -Windows -ComputerName $vmName -Credential $cred | `
-Set-AzureRmVMSourceImage -PublisherName MicrosoftWindowsServer -Offer WindowsServer -Skus 2016-Datacenter -Version latest | `
-Add-AzureRmVMNetworkInterface -Id $nic.Id
+$ $vmConfig = New-AzureRmVMConfig -VMName $vmName -VMSize Standard_D1 | Set-AzureRmVMOperatingSystem -Windows -ComputerName $vmName -Credential $cred | Set-AzureRmVMSourceImage -PublisherName MicrosoftWindowsServer -Offer WindowsServer -Skus 2016-Datacenter -Version latest | Add-AzureRmVMNetworkInterface -Id $nic.Id
 
 # Create a virtual machine
-New-AzureRmVM -ResourceGroupName $resourceGroup -Location $location -VM $vmConfig
+$ New-AzureRmVM -ResourceGroupName $resourceGroup -Location $location -VM $vmConfig
 ```
 
 Azure CLI 2.0, for example, has implemented a much stronger and opinionated central authority, which has led to _scenario_-focused commands.  Let us contrast the Azure PowerShell implementation with the Azure CLI 2.0 implementation.
@@ -102,13 +93,13 @@ Azure CLI 2.0, for example, has implemented a much stronger and opinionated cent
 #!/bin/bash
 
 # Update for your admin password
-AdminPassword=ChangeYourAdminPassword1
+$ AdminPassword=ChangeYourAdminPassword1
 
 # Create a resource group.
-az group create --name myResourceGroup --location westus
+$ az group create --name myResourceGroup --location westus
 
 # Create a virtual machine. 
-az vm create \
+$ az vm create \
     --resource-group myResourceGroup \
     --name myVM \
     --image win2016datacenter \
@@ -159,7 +150,7 @@ Shortened cmdlet names would impact all users positively, and it would impact us
 In general, Azure PowerShell cmdlet names are too long.  As of today, each cmdlet takes the following form.
 
 ```powershell
-Verb-AzureRm
+$ Verb-AzureRm
 ```
 
 where `Verb` is the common PowerShell verb (e.g., `Get`, `Update`, `Select`).  For a user using code completion in a text editor, or tab completion in the PowerShell terminal, a minimum of eleven (11) characters must be typed before any meaningful completion can take place.
@@ -167,7 +158,7 @@ where `Verb` is the common PowerShell verb (e.g., `Get`, `Update`, `Select`).  F
 In addition, some cmdlet names have gotten out of hand with some cmdlets approaching seventy-five (75) characters in length.  Most users will use completion before typing the full cmdlet name; however, there are some resource providers that ship long prefixes.
 
 ```powershell
-Unregister-AzureRmRecoveryServicesBackupManagementServer -AzureRmBackupManagementServer $BMS
+$ Unregister-AzureRmRecoveryServicesBackupManagementServer -AzureRmBackupManagementServer $BMS
 ```
 
 In the case of these cmdlets, a user must type **INSERT NUMBER OF CHARACTERS HERE** characters before any meaningful completion can take place for and cmdlet **INSERT RESOURCE PROVIDER NAME** ships.
