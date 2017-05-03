@@ -211,7 +211,7 @@ Other strategy ideas:
 ```powershell
 # In this sample, we show the fact that resource group is a "gray" parameter.
 $ Login-AzAccount
-$ New-AzVm -Name MyVm -Image UbuntuLTS
+$ New-AzVm -Name MyVm -Image WinServer2016
 
 A resource group was not specified: would you like to create MyVmRg12345 (Y/n)? Y
 
@@ -219,12 +219,15 @@ Selected Defaults:
   NIC: NicName.
   NSG: NSGName.
     NSG Rule: Open, RDP.
+    NSG Rule: Open, PSRemote.
     NSG Rule: Closed, all.
   Public IP: 21.32.43.54
   Size: Standard_DS1_v2
 
 Done!
+
 {PSObject Output}
+
 ```
 
 The user should be able to specify certain global defaults, e.g., resource group.
@@ -233,26 +236,28 @@ The user should be able to specify certain global defaults, e.g., resource group
 # In this sample, we show the user what smart defaults were selected.
 $ Login-Az
 $ New-AzRg MyRg | Set-AzDefaultRg
-$ New-AzVm -Name MyVm -Image UbuntuLTS
+$ New-AzVm -Name MyVm -Image WinServer2016
 
 Selected Defaults:
   NIC: NicName.
   NSG: NSGName.
     NSG Rule: Open, RDP.
+    NSG Rule: Open, PSRemote.
     NSG Rule: Closed, all.
   Public IP: 21.32.43.54
   Size: Standard_DS1_v2
 
 Done!
+
 {PSObject Output}
+
 ```
 
 ### Create and Deploy Web App
 
-Smart defaults would be chosen.  For example, a "free" plan should be the default web app plan.
+Smart defaults would be chosen.  For example, a "free" plan should be the default web app plan.  In this sample, we show the fact that plan is a "gray" parameter.
 
 ```powershell
-# In this sample, we show the fact that plan is a "gray" parameter.
 $ Login-Az
 $ New-AzRg MyRg | Set-AzDefaultRg
 $ New-AzWeb -Name MyWebApp
@@ -261,32 +266,75 @@ A web app plan was not specified: would you like to create a free plan MyWebAppP
 
 A git repository was detected, would you like to add this web app as a remote named "azure" (Y/n)? Y
 
-Would you like to push this git repository to this web app (Y/n)? Y
+$ git push azure master
 
-{A bunch of git output...}
-
-Done!
+remote: Updating branch 'master'.        
+remote: Updating submodules.        
+remote: Preparing deployment for commit id 'ca1d79273a'.        
+remote: Generating deployment script.        
+remote: Generating deployment script for Web Site        
+remote: Generated deployment script files        
+remote: Running deployment command...        
+remote: Handling Basic Web Site deployment.        
+remote: KuduSync.NET from: 'D:\home\site\repository' to: 'D:\home\site\wwwroot'        
+remote: Deleting file: 'hostingstart.html'        
+remote: Copying file: 'index.html'        
+remote: Finished successfully.        
+remote: Running post deployment command(s)...        
+remote: Deployment successful.        
+To https://test-oytapcve.scm.azurewebsites.net
+ * [new branch]      master -> master
 ```
 
+In this sample, we show optional parameters which assist in a later deploy.
 ```powershell
-# In this sample, we show optional parameters which assist in a later deploy.
 $ Login-Az
 $ New-AzRg MyRg | Set-AzDefaultRg
-$ New-AzWeb -Name MyWebApp -Plan MyWebAppPlan -AddRemote -Deploy
+$ New-AzWeb -Name MyWebApp -Plan MyWebAppPlan -AddRemote
+$ git push azure master
 
-{A bunch of git output...}
-
-Done!
+remote: Updating branch 'master'.        
+remote: Updating submodules.        
+remote: Preparing deployment for commit id 'ca1d79273a'.        
+remote: Generating deployment script.        
+remote: Generating deployment script for Web Site        
+remote: Generated deployment script files        
+remote: Running deployment command...        
+remote: Handling Basic Web Site deployment.        
+remote: KuduSync.NET from: 'D:\home\site\repository' to: 'D:\home\site\wwwroot'        
+remote: Deleting file: 'hostingstart.html'        
+remote: Copying file: 'index.html'        
+remote: Finished successfully.        
+remote: Running post deployment command(s)...        
+remote: Deployment successful.        
+To https://test-oytapcve.scm.azurewebsites.net
+ * [new branch]      master -> master
 ```
 
 ```powershell
 # This sample gets the deployment endpoint (not trivial currently) and deploys.
 $ Login-Az
 $ New-AzRg MyRg | Set-AzDefaultRg
-$ New-AzWeb -Name MyWebApp -Plan MyWebAppPlan
-$ $endpoint = Get-AzWebScm -Name MyWebApp
-$ git remote add azure $endpoint
+$ $webApp = New-AzWeb -Name MyWebApp -Plan MyWebAppPlan
+$ git remote add azure $webapp.ScmUri
 $ git push azure master
+
+remote: Updating branch 'master'.        
+remote: Updating submodules.        
+remote: Preparing deployment for commit id 'ca1d79273a'.        
+remote: Generating deployment script.        
+remote: Generating deployment script for Web Site        
+remote: Generated deployment script files        
+remote: Running deployment command...        
+remote: Handling Basic Web Site deployment.        
+remote: KuduSync.NET from: 'D:\home\site\repository' to: 'D:\home\site\wwwroot'        
+remote: Deleting file: 'hostingstart.html'        
+remote: Copying file: 'index.html'        
+remote: Finished successfully.        
+remote: Running post deployment command(s)...        
+remote: Deployment successful.        
+To https://test-oytapcve.scm.azurewebsites.net
+ * [new branch]      master -> master
 ```
 
 ### Storage scenarios?

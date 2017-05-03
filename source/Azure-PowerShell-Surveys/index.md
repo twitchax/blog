@@ -1,8 +1,7 @@
 title: Azure PowerShell Surveys
-date: 2017-04-26 15:16:34
 author: Aaron Roney
+date: 2017-04-26 15:16:34
 ---
-
 > What are some good surveys to run with Azure PowerShell?
 
 ## Documentation
