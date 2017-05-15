@@ -16,9 +16,8 @@ Azure PowerShell has become somewhat of a "second thought" to service teams; how
 
 ### Azure PowerShell
 
-Create VM.
+Create VM.<a name="createVmOld"></a>
 
-<a name="createVmOld"></a>
 ```powershell
 # Variables for common values
 $ $resourceGroup = "myResourceGroup"
@@ -209,9 +208,8 @@ Other strategy ideas:
 
 ### Create VM
 
-In this sample, we show the fact that resource group is a "gray" parameter.
+In this sample, we show the fact that resource group is a "gray" parameter.<a name="createVmWithGray"></a>
 
-<a name="createVmWithGray"></a>
 ```powershell
 $ Login-AzAccount
 $ New-AzVm -Name MyVm -Image WinServer2016
