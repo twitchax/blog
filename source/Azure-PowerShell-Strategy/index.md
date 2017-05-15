@@ -208,7 +208,7 @@ Other strategy ideas:
 
 ### Create VM
 
-In this sample, we show the fact that resource group is a "gray" parameter.<a name="createVmWithGray"></a>
+In this sample, we show the fact that resource group is a "gray" parameter.  The user has chosen to type out a new resource group name.<a name="createVmWithGray"></a>
 
 ```powershell
 $ Login-AzAccount
@@ -216,14 +216,13 @@ $ New-AzVm -Name MyVm -Image WinServer2016
 
 Would you like to create a new resource group (MyRg12345)? MyCustomRgName
 
-Selected Defaults:
-  NIC: NicName.
-  NSG: NSGName.
-    NSG Rule: Open, RDP.
-    NSG Rule: Open, PSRemote.
-    NSG Rule: Closed, all.
-  Public IP: 21.32.43.54
-  Size: Standard_DS1_v2
+NIC: NicName.
+NSG: NSGName.
+  NSG Rule: Open, RDP (3389).
+  NSG Rule: Open, PSRemote (5985).
+  NSG Rule: Closed, all.
+Public IP: 21.32.43.54
+Size: Standard_DS1_v2
 
 Done!
 
@@ -238,14 +237,34 @@ $ Login-Az
 $ New-AzRg MyRg | Set-AzDefaultRg
 $ New-AzVm -Name MyVm -Image WinServer2016
 
-Selected Defaults:
-  NIC: NicName.
-  NSG: NSGName.
-    NSG Rule: Open, RDP.
-    NSG Rule: Open, PSRemote.
-    NSG Rule: Closed, all.
-  Public IP: 21.32.43.54
-  Size: Standard_DS1_v2
+NIC: NicName.
+NSG: NSGName.
+  NSG Rule: Open, RDP (3389).
+  NSG Rule: Open, PSRemote (5985).
+  NSG Rule: Closed, all.
+Public IP: 21.32.43.54
+Size: Standard_DS1_v2
+
+Done!
+
+{PSObject Output}
+
+```
+
+The user should also expect to receive smart defaults, where applicable.  In this sample, we show the user what smart defaults were selected, including the public key from her machine for ubuntu (as well as open the proper port).
+
+```powershell
+$ Login-Az
+$ New-AzRg MyRg | Set-AzDefaultRg
+$ New-AzVm -Name MyVm -Image Ubuntu
+
+Credentials: ~/.ssh/id_rsa.pub
+NIC: NicName.
+NSG: NSGName.
+  NSG Rule: Open, SSH (22).
+  NSG Rule: Closed, all.
+Public IP: 21.32.43.54
+Size: Standard_DS1_v2
 
 Done!
 
