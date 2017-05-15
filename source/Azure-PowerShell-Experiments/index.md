@@ -1,6 +1,6 @@
 title: Azure PowerShell Experiments
 author: Aaron Roney
-date: 2017-04-26 15:15:49
+date: 2017-05-14 21:52:13
 ---
 > What are some good experiments to run for Azure PowerShell?
 

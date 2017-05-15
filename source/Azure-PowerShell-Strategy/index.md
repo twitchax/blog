@@ -1,6 +1,6 @@
 title: Azure PowerShell Strategy
 author: Aaron Roney
-date: 2017-04-26 15:06:04
+date: 2017-05-14 21:52:13
 ---
 > What are killer demos for Azure PowerShell?  How do we get there?
 
@@ -14,10 +14,11 @@ Azure PowerShell has become somewhat of a "second thought" to service teams; how
 
 ## Compete
 
-### Current Azure PowerShell
+### Azure PowerShell
 
 Create VM.
 
+<a name="createVmOld"></a>
 ```powershell
 # Variables for common values
 $ $resourceGroup = "myResourceGroup"
@@ -208,12 +209,14 @@ Other strategy ideas:
 
 ### Create VM
 
+In this sample, we show the fact that resource group is a "gray" parameter.
+
+<a name="createVmWithGray"></a>
 ```powershell
-# In this sample, we show the fact that resource group is a "gray" parameter.
 $ Login-AzAccount
 $ New-AzVm -Name MyVm -Image WinServer2016
 
-A resource group was not specified: would you like to create MyVmRg12345 (Y/n)? Y
+Would you like to create a new resource group (MyRg12345)? MyCustomRgName
 
 Selected Defaults:
   NIC: NicName.
@@ -230,10 +233,9 @@ Done!
 
 ```
 
-The user should be able to specify certain global defaults, e.g., resource group.
+The user should be able to specify certain global defaults, e.g., resource group.  In this sample, we show the user what smart defaults were selected.
 
 ```powershell
-# In this sample, we show the user what smart defaults were selected.
 $ Login-Az
 $ New-AzRg MyRg | Set-AzDefaultRg
 $ New-AzVm -Name MyVm -Image WinServer2016
@@ -262,7 +264,7 @@ $ Login-Az
 $ New-AzRg MyRg | Set-AzDefaultRg
 $ New-AzWeb -Name MyWebApp
 
-A web app plan was not specified: would you like to create a free plan MyWebAppPlan (Y/n)? Y
+Would you like to create a free plan (MyWebAppPlan)? # {Can skip to use suggested.}
 
 A git repository was detected, would you like to add this web app as a remote named "azure" (Y/n)? Y
 
@@ -287,6 +289,7 @@ To https://test-oytapcve.scm.azurewebsites.net
 ```
 
 In this sample, we show optional parameters which assist in a later deploy.
+
 ```powershell
 $ Login-Az
 $ New-AzRg MyRg | Set-AzDefaultRg
@@ -311,8 +314,9 @@ To https://test-oytapcve.scm.azurewebsites.net
  * [new branch]      master -> master
 ```
 
+This sample gets the deployment endpoint (not trivial currently) and deploys.
+
 ```powershell
-# This sample gets the deployment endpoint (not trivial currently) and deploys.
 $ Login-Az
 $ New-AzRg MyRg | Set-AzDefaultRg
 $ $webApp = New-AzWeb -Name MyWebApp -Plan MyWebAppPlan
@@ -352,5 +356,60 @@ $ Login-Az
 $ New-AzRg MyRg | Set-AzDefaultRg
 $ New-AzFunction -AppName MyFunctionApp -Source myFunction.js
 ```
+
+## Customer Feedback
+
+Some of these examples were shown to customers.  We received some good feedback on these strategy ideas.
+All of the feedback compiled was in reference to [creating a VM with gray parameters](#createVmWithGray) versus [creating a VM today](#createVmOld).
+
+### Mark Gu
+* About current script:
+  * The script as it is today is not bad: variables could be serialized.
+  * Does not mind the length of the script because most of the networking entities would already be around for him to pull in.
+* About proposed script:
+  * "This is brilliant!"
+  * "Love the smart defaults."
+  * "What's frustrating at AWS is that if you get something wrong, you just get exception...I Like the 'guided' experience."
+  * "Prompts should give a 'suggested' default that happens when you hit ENTER, but if you want to type specific name, then you can; if you want to `-Force`, you can."
+  * Stated that he hates the inconsistencies in _AWS cmdlets_.
+  * Consistency across RPs should be a high priority.
+  
+### Lenny Self
+* About current script:
+  * Logical defaults for most of the network setup stuff - it is great to have the capability, but this is too difficult to start up with.
+  * Length of cmdlet name: tab completion makes this less interesting.
+  * Doesn't mind azure being spelled out.
+* About proposed script:
+  * Likes default resource group.
+  * Does not necessarily care about tab completion for images/location.
+  * Prompts with `-Force` are a good way to balance prompting with scripting.
+  * Should allow for cross-session defaulting of resource group, location, etc.
+  
+### Chris Dickerson
+* About current script:
+  * "It doesn't look terrible."
+  * "Not terribly convoluted, this is actually not that complex."
+  * Would go to books for help.
+  * PowerShell does not have a good UI to obtain modules from PSGallery.
+  * Getting started for PowerShell is difficult.
+* About proposed script:
+  * "Reduced set is way better."
+  * Important to allow for fallback to "old" script for power users.
+  * Json template is a good idea for creating complex objects.
+  
+### Jon Cwiak
+* About current script:
+  * Immediate reaction is that this shows me the logical progression. It shows intent. Very procedural.
+  * "If I am an IT Pro, this makes perfect sense."
+  * "To me, it seems awfully verbose. There's a lot of words."
+  * "Lots of opportunities to make a mistake."
+* About proposed script:
+  * "I like DSC. It is declarative. I am describing the 'what' I want instead of 'how' I want."
+  * "I like the declarative nature of this...not necessarily because it is shorter."
+  * "Length of cmdlet name makes almost no difference to me."
+  * "It is declarative and more easy to read."
+  * "DSC is my best friend, and this is like that."
+  * Liked the fact that selected defaults were displayed in a "short format".
+
 
 # Conclusion
