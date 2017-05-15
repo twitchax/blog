@@ -88,7 +88,4 @@ disqus_shortname: twitchax-blog
 
 # hexo-admin authentification
 admin:
-  username: twitchax
-  password_hash: $2a$10$onH6870aA4TxrzA/gKKmzu6fzfSBSI9uKaeB/l.V.OoAx/IH6a0TS
-  secret: my super secret phrase
   deployCommand: hexo deploy -g

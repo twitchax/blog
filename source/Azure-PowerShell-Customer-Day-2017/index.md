@@ -2,7 +2,7 @@ title: Azure PowerShell Customer Day 2017
 author: Aaron Roney
 date: 2017-05-14 21:52:13
 ---
-## Lenny Self
+## Lenny S.
 
 Senior Software Engineer, New Relic, https://github.com/geekexplorer.
 
@@ -35,7 +35,7 @@ PowerShell.
   * Setting up a session default 
   * Maintain across sessions + override locally
   
-## Mark Gu
+## Mark G.
 
 Product Architect, Xero, https://www.linkedin.com/in/xuangu.
 
@@ -76,7 +76,7 @@ Product Architect, Xero, https://www.linkedin.com/in/xuangu.
 * HATES INCONSISTENCIES BETWEEN CMDLETS IN AWS.
 * WANTS CONSISTENCY.
 
-## Chris Dickerson
+## Chris D.
 
 Software Engineer, Technology Service Corporation, https://github.com/dev-cdd/.
 
@@ -113,7 +113,7 @@ Software Engineer, Technology Service Corporation, https://github.com/dev-cdd/.
   * Samples are a preferred method of learning
   * Reference based help doesn't really tell you what you need to know, but the samples sjhow the pieces and the intent
 
-## Jon Cwiak
+## Jon C.
 
 Software Architect, Humana, https://github.com/binaryjanitor.
 

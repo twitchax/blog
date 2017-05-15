@@ -362,7 +362,7 @@ $ New-AzFunction -AppName MyFunctionApp -Source myFunction.js
 Some of these examples were shown to customers.  We received some good feedback on these strategy ideas.
 All of the feedback compiled was in reference to [creating a VM with gray parameters](#createVmWithGray) versus [creating a VM today](#createVmOld).
 
-### Mark Gu
+### Mark G.
 * About current script:
   * The script as it is today is not bad: variables could be serialized.
   * Does not mind the length of the script because most of the networking entities would already be around for him to pull in.
@@ -374,7 +374,7 @@ All of the feedback compiled was in reference to [creating a VM with gray parame
   * Stated that he hates the inconsistencies in _AWS cmdlets_.
   * Consistency across RPs should be a high priority.
   
-### Lenny Self
+### Lenny S.
 * About current script:
   * Logical defaults for most of the network setup stuff - it is great to have the capability, but this is too difficult to start up with.
   * Length of cmdlet name: tab completion makes this less interesting.
@@ -385,7 +385,7 @@ All of the feedback compiled was in reference to [creating a VM with gray parame
   * Prompts with `-Force` are a good way to balance prompting with scripting.
   * Should allow for cross-session defaulting of resource group, location, etc.
   
-### Chris Dickerson
+### Chris D.
 * About current script:
   * "It doesn't look terrible."
   * "Not terribly convoluted, this is actually not that complex."
@@ -397,7 +397,7 @@ All of the feedback compiled was in reference to [creating a VM with gray parame
   * Important to allow for fallback to "old" script for power users.
   * Json template is a good idea for creating complex objects.
   
-### Jon Cwiak
+### Jon C.
 * About current script:
   * Immediate reaction is that this shows me the logical progression. It shows intent. Very procedural.
   * "If I am an IT Pro, this makes perfect sense."
