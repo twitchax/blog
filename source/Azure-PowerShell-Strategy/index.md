@@ -2,6 +2,8 @@ title: Azure PowerShell Strategy
 author: Aaron Roney
 date: 2017-05-14 21:52:13
 ---
+<!-- toc -->
+
 > What are killer demos for Azure PowerShell?  How do we get there?
 
 ## Introduction
@@ -85,7 +87,7 @@ $ $password = $xml.SelectNodes("//publishProfile[@publishMethod=`"MSDeploy`"]/@u
 # Add the Azure remote to your local Git respository and push your code
 #### This method saves your password in the git remote. You can use a Git credential manager to secure your password instead.
 $ git remote add azure "https://${username}:$password@$webappname.scm.azurewebsites.net"
-git push azure master
+$ git push azure master
 ```
 
 ### Azure CLI 2.0
@@ -167,34 +169,74 @@ $ now
 
 ## Proposed Areas of Improvement
 
-These areas of improvements were selected based on key differentiators in competing products.  For example, Azure CLI 2.0 has made a point of basing commands on _scenarios_ rather than _API surface area_; in addition, they have chosen a number of smart defaults which make "getting started" scenarios easier for end uers.  
+These areas of improvements were selected based on key differentiators in competing products.  For example, Azure CLI 2.0 has made a point of basing commands on _scenarios_ rather than _API surface area_; in addition, they have chosen a number of smart defaults which make "getting started" scenarios easier for end uers.
+
+The team came up with some key scenarios for design improvements.
+
+![](index/PS_Experiment_Discussion.jpg)
+
+### Core Improvements
+
+The subsequent improvements are generally regarded as "common sense", and very little experimentation is needed to move forward in implementing these updates.
 
 ### Scenario-based Cmdlets
 
 **All** cmdlets should be designed around scenarios, not the Azure REST service.
 
-### Shorter Names
+#### Shorter Names
 
-This includes the names of cmdlets (e.g., `New-AzureRmVM` => `New-AzVm`) and the names of parameters (e.g., `-ResourceGroupName` => `-Rg`).
+This includes the names of cmdlets (e.g., `New-AzureRmVM` => `New-AzVm`) and the names of parameters (e.g., `-ResourceGroupName` => `-Rg`).  **To ensure compatibility, and reduce breaking changes, new cmdlets should have aliases to the "old" cmdlets; in addition, they should share _backwards compatible_ parameter sets.**
 
-### Smart Defaults
+#### Smart Defaults
 
 We will explore defaulting almost everything.  Popular defaults in competing products:
 * Resource Group.
 * Location.
 * Dependent resources.
 
-#### Settable Defaults
+### Experimental Improvements
 
-Users should have the ability to default certain ubiquitous parameters like `-ResourceGroupName` and `-Location`.
+The subsequent improvements present several significant paradigm shifts which the team will validate and improve upon via experimentation.
+
+#### "Just Do It"
+
+All create scenarios implementing "just do it" would have _no_ required parameters: all necessary information would be chosen by Azure PowerShell in an opinionated fashion.
 
 #### Gray Parameters
 
 In many cases, some parameters could be "gray" or semi-optional.  That is, if the parameter is not specified, the user is asked if we should generate the parameter for them.  For example, resource group is required for almost all _create_ scenarios; however, users often want to create a resource without much concern for a specific group (especially during REPL use).  As such, resource group would be a "gray" parameter that is provisioned for the user with a random name if they choose to leave it off.
 
+It also makes sense for gray parameters to infer a value based on context with the user's consent.  For example, if the user has used a certain resource group for the last few cmdlets, it may make sense to have the gray parameter suggest the most recently used resource group (as opposed to recommending that the user create a new one).
+
 #### `-Auto` Switch
 
 This is an alternative posited in response to the fact that "gray" parameters are equivalent to the oxymoronic phrase "required parameter with a default".  In this case, `New-AzVm` would normally require that `-Name`, `-Image`, and `-Rg` be provided.  The `-Auto` switch would provide an "opt-in" way for users to _default all the things_ while maintaining the integrity of required parameters in the mainline path.
+
+#### Feature-Specific Switches
+
+This would be similar to `-Auto`, but would be meant for specific scenarios.  For example, the "Create web app" scenario might have a `-Git` or `-AddRemote` switch which would automatically add an "azure" remote to an existing git repository.
+
+#### Settable Defaults
+
+Users should have the ability to default certain ubiquitous parameters like `-ResourceGroupName` and `-Location`.
+
+#### Size Defaults
+
+Resource "sizes" can be confusing to users since many RPs use different names (e.g., "Standard_DS1_v2" or "S1"); however, it may be asserted that users care most about cost.  With this in mind, it may make sense to define "universal" sizes.  For example, it may make sense to provide t-shirt sizes that follow a price structure.
+
+* XS: under $10/month.
+* S: under $30/month.
+* M: under $50/month.
+* L: under $100/month.
+* XL: udner $200/month.
+
+Using these size, a user can let Azure PowerShell choose the _best option_ based on the resource they need and the budget.  Users, however, could still specifiy a specific size if they so chose.
+
+This could also be achieved by, instead, giving the user the option to pass a "maximum dollar amount per month"; subsequently, Azure PowerShell would choose the best fit at the particular price point.
+
+#### Output Format
+
+Azure PowerShell currently returns `PSObject`s (in general), and there is normally very little console output.  However, many of the proposed designs make smart decisions on behalf of the user.  Despite the fact that console output is not a core paradigm of PowerShell, Azure PowerShell may need to display some information to the user regarding defaults, etc.
 
 ### Other
 
@@ -214,6 +256,27 @@ Other strategy ideas:
 
 ### Create VM
 
+In this sample, we automate all choices for the user without any prompting.
+
+#### With "Just Do It"
+
+```powershell
+$ Login-AzAccount
+$ New-AzVm
+
+Name: MyVm12345.
+Resource Group: MyRg12345.
+Image: WinServer2016.
+NIC: NicName.
+NSG: NSGName.
+  NSG Rule: Open, RDP (3389).
+  NSG Rule: Open, PSRemote (5985).
+  NSG Rule: Closed, all.
+Public IP: 21.32.43.54
+Size: Standard_DS1_v2
+$
+```
+
 #### With Gray Parameters
 
 In this sample, we show the fact that resource group is a "gray" parameter.  The user has chosen to type out a new resource group name.<a name="createVmWithGray"></a>
@@ -222,7 +285,11 @@ In this sample, we show the fact that resource group is a "gray" parameter.  The
 $ Login-AzAccount
 $ New-AzVm -Name MyVm -Image WinServer2016
 
-Would you like to create a new resource group (MyRg12345)? MyCustomRgName
+Resource group options:
+   [Default] MyRg12345
+   [1] MyRg1
+   [2] MyRg2
+Enter your selection or a new resource group (leave blank for default): MyCustomRgName
 
 NIC: NicName.
 NSG: NSGName.
@@ -230,12 +297,8 @@ NSG: NSGName.
   NSG Rule: Open, PSRemote (5985).
   NSG Rule: Closed, all.
 Public IP: 21.32.43.54
-Size: Standard_DS1_v2
-
-Done!
-
-{PSObject Output}
-
+Size: Standard_DS1_v2.
+$
 ```
 
 #### With `-Auto`
@@ -254,13 +317,28 @@ NSG: NSGName.
   NSG Rule: Open, RDP (3389).
   NSG Rule: Open, PSRemote (5985).
   NSG Rule: Closed, all.
-Public IP: 21.32.43.54
-Size: Standard_DS1_v2
+Public IP: 21.32.43.54.
+Size: Standard_DS1_v2.
+$
+```
 
-Done!
+`-Auto` could also indicate that the user wants autogenerate the "rest" of the parameters.
 
-{PSObject Output}
+```powershell
+$ Login-AzAccount
+$ New-AzVm -Name MyAwesomeVm -Auto
 
+Name: MyAwesomeVm.
+Resource group: MyRg12345.
+Image: WinServer2016.
+NIC: NicName.
+NSG: NSGName.
+  NSG Rule: Open, RDP (3389).
+  NSG Rule: Open, PSRemote (5985).
+  NSG Rule: Closed, all.
+Public IP: 21.32.43.54.
+Size: Standard_DS1_v2.
+$
 ```
 
 #### With Settable Defaults
@@ -277,13 +355,9 @@ NSG: NSGName.
   NSG Rule: Open, RDP (3389).
   NSG Rule: Open, PSRemote (5985).
   NSG Rule: Closed, all.
-Public IP: 21.32.43.54
-Size: Standard_DS1_v2
-
-Done!
-
-{PSObject Output}
-
+Public IP: 21.32.43.54.
+Size: Standard_DS1_v2.
+$
 ```
 
 #### With Smart Defaults
@@ -295,23 +369,81 @@ $ Login-Az
 $ New-AzRg MyRg | Set-AzDefaultRg
 $ New-AzVm -Name MyVm -Image Ubuntu
 
-Credentials: ~/.ssh/id_rsa.pub
+Credentials: ~/.ssh/id_rsa.pub.
 NIC: NicName.
 NSG: NSGName.
   NSG Rule: Open, SSH (22).
   NSG Rule: Closed, all.
-Public IP: 21.32.43.54
-Size: Standard_DS1_v2
+Public IP: 21.32.43.54.
+Size: Standard_DS1_v2.
+$
+```
 
-Done!
+#### With Size Defaults
 
-{PSObject Output}
+The user should also expect to receive smart defaults, where applicable.  In this sample, we show the user what smart defaults were selected, including the public key from her machine for ubuntu (as well as open the proper port).
 
+```powershell
+$ Login-Az
+$ New-AzRg MyRg | Set-AzDefaultRg
+$ New-AzVm -Name MyVm -Image Ubuntu -Size 50
+
+Credentials: ~/.ssh/id_rsa.pub.
+NIC: NicName.
+NSG: NSGName.
+  NSG Rule: Open, SSH (22).
+  NSG Rule: Closed, all.
+Public IP: 21.32.43.54.
+Size: A1 ($45 / month).
+$
+```
+
+#### With Instructions
+
+```powershell
+$ Login-Az
+$ New-AzRg MyRg | Set-AzDefaultRg
+$ New-AzVm -Name MyVm -Image Ubuntu -Size 50
+
+Connect to the VM with `ssh myvmdnslabel.centralus.cloudapp.azure.com`.
+$
 ```
 
 ### Create and Deploy Web App
 
-#### With Automatic Plan and Git Remote Help
+#### With "Just Do It"
+
+```powershell
+$ Login-Az
+$ New-AzWeb
+
+Name: MyWebApp12345.
+Plan: MyWebAppPlan12345.
+Resource Group: MyRg12345.
+Git repository detected, added remote "azure".
+
+$ git push azure master
+
+remote: Updating branch 'master'.        
+remote: Updating submodules.        
+remote: Preparing deployment for commit id 'ca1d79273a'.        
+remote: Generating deployment script.        
+remote: Generating deployment script for Web Site        
+remote: Generated deployment script files        
+remote: Running deployment command...        
+remote: Handling Basic Web Site deployment.        
+remote: KuduSync.NET from: 'D:\home\site\repository' to: 'D:\home\site\wwwroot'        
+remote: Deleting file: 'hostingstart.html'        
+remote: Copying file: 'index.html'        
+remote: Finished successfully.        
+remote: Running post deployment command(s)...        
+remote: Deployment successful.        
+To https://test-oytapcve.scm.azurewebsites.net
+ * [new branch]      master -> master
+$
+```
+
+#### With Gray Parameters (Automatic Plan and Git Remote Help)
 
 Smart defaults would be chosen.  For example, a "free" plan should be the default web app plan.  In this sample, we show the fact that plan is a "gray" parameter.
 
@@ -320,7 +452,11 @@ $ Login-Az
 $ New-AzRg MyRg | Set-AzDefaultRg
 $ New-AzWeb -Name MyWebApp
 
-Would you like to create a free plan (MyWebAppPlan)? # {Can skip to use suggested.}
+Plan options:
+   [Default] MyPlan12345
+   [1] MyPlan1
+   [2] MyPlan2
+Enter your selection or a new resource group (leave blank for default): # {Can skip to use default.}
 
 A git repository was detected, would you like to add this web app as a remote named "azure" (Y/n)? Y
 
@@ -342,6 +478,7 @@ remote: Running post deployment command(s)...
 remote: Deployment successful.        
 To https://test-oytapcve.scm.azurewebsites.net
  * [new branch]      master -> master
+$
 ```
 
 #### With `-Auto`
@@ -373,6 +510,7 @@ remote: Running post deployment command(s)...
 remote: Deployment successful.        
 To https://test-oytapcve.scm.azurewebsites.net
  * [new branch]      master -> master
+$
 ```
 
 #### With `-AddRemote`
@@ -404,6 +542,7 @@ remote: Running post deployment command(s)...
 remote: Deployment successful.        
 To https://test-oytapcve.scm.azurewebsites.net
  * [new branch]      master -> master
+$
 ```
 
 #### With Improved Deploy Support
@@ -433,6 +572,20 @@ remote: Running post deployment command(s)...
 remote: Deployment successful.        
 To https://test-oytapcve.scm.azurewebsites.net
  * [new branch]      master -> master
+$
+```
+
+#### With Instructions
+
+This sample gets the deployment endpoint (not trivial currently) and deploys.
+
+```powershell
+$ Login-Az
+$ New-AzRg MyRg | Set-AzDefaultRg
+$ $webApp = New-AzWeb -Name MyWebApp -Plan MyWebAppPlan
+
+Use `ScmUri` to deploy via git, GitHub or FTP.  For example, you can configure a local git remote with `git remote add azure $result.ScmUri`.
+$
 ```
 
 ### Storage scenarios?
@@ -449,14 +602,17 @@ To https://test-oytapcve.scm.azurewebsites.net
 $ Login-Az
 $ New-AzRg MyRg | Set-AzDefaultRg
 $ New-AzFunction -AppName MyFunctionApp -Source myFunction.js
+$
 ```
 
 ## Customer Feedback
 
+### Concept Interviews
+
 Some of these examples were shown to customers.  We received some good feedback on these strategy ideas.
 All of the feedback compiled was in reference to [creating a VM with gray parameters](#createVmWithGray) versus [creating a VM today](#createVmOld).
 
-### Scott G.
+#### Scott G.
 
 * Roll out some simplifications around Create VM cmdlet by June 30.
 * Be diligent about what scenarios we chose and be vary of introducing breaking changes.
@@ -464,7 +620,7 @@ All of the feedback compiled was in reference to [creating a VM with gray parame
 * Look at CLI tutorials to get ideas for similar defaults.
 * Literally steal some of the defaults from CLI end-to-end scenarios.
 
-### Mark G.
+#### Mark G.
 
 * About current script:
   * The script as it is today is not bad: variables could be serialized.
@@ -477,7 +633,7 @@ All of the feedback compiled was in reference to [creating a VM with gray parame
   * Stated that he hates the inconsistencies in _AWS cmdlets_.
   * Consistency across RPs should be a high priority.
   
-### Lenny S.
+#### Lenny S.
 
 * About current script:
   * Logical defaults for most of the network setup stuff - it is great to have the capability, but this is too difficult to start up with.
@@ -489,7 +645,7 @@ All of the feedback compiled was in reference to [creating a VM with gray parame
   * Prompts with `-Force` are a good way to balance prompting with scripting.
   * Should allow for cross-session defaulting of resource group, location, etc.
   
-### Chris D.
+#### Chris D.
 
 * About current script:
   * "It doesn't look terrible."
@@ -502,7 +658,7 @@ All of the feedback compiled was in reference to [creating a VM with gray parame
   * Important to allow for fallback to "old" script for power users.
   * Json template is a good idea for creating complex objects.
   
-### Jon C.
+#### Jon C.
 
 * About current script:
   * Immediate reaction is that this shows me the logical progression. It shows intent. Very procedural.
@@ -516,6 +672,10 @@ All of the feedback compiled was in reference to [creating a VM with gray parame
   * "It is declarative and more easy to read."
   * "DSC is my best friend, and this is like that."
   * Liked the fact that selected defaults were displayed in a "short format".
+  
+### Feature Interviews
+
+### HCI Interviews
 
 
 # Conclusion
