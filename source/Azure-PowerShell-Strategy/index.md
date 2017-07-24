@@ -286,7 +286,8 @@ In this sample, we create the proper types out of the simple types that the user
 
 ```powershell
 $ Login-AzAccount
-$ New-AzVm -Name MyVm -ResourceGroup MyRg -Image WinServer2016 -OpenPorts 3389,5985,80 -AddressPrefix 192.168.1.0/24
+$ New-AzVm -Name MyVm -ResourceGroup MyRg -Image WinServer2016 `
+  -OpenPorts 3389,5985,80 -AddressPrefix 192.168.1.0/24
 
 Name: MyVm.
 Resource Group: MyRg.
