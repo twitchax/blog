@@ -216,6 +216,10 @@ We will explore defaulting almost everything.  Popular defaults in competing pro
 
 The subsequent improvements present several significant paradigm shifts which the team will validate and improve upon via experimentation.
 
+#### Simple types
+
+Create scenarios should move away from complex types and config objects.  For example, the current "create VM" scenario requires the user to set up lots of objects that could be simplified down to one or two parameters.
+
 #### "Just Do It"
 
 All create scenarios implementing "just do it" would have _no_ required parameters: all necessary information would be chosen by Azure PowerShell in an opinionated fashion.
@@ -275,6 +279,28 @@ Other strategy ideas:
 ### Create VM
 
 In this sample, we automate all choices for the user without any prompting.
+
+#### With Simple Types
+
+In this sample, we create the proper types out of the simple types that the user passes.  For example, the `-AddressPrefix` parameter results in a new VNET with subnet of the specified address prefix.
+
+```powershell
+$ Login-AzAccount
+$ New-AzVm -Name MyVm -ResourceGroup MyRg -Image WinServer2016 -OpenPorts 3389,5985,80 -AddressPrefix 192.168.1.0/24
+
+Name: MyVm.
+Resource Group: MyRg.
+Image: WinServer2016.
+NIC: NicName.
+NSG: NSGName.
+  NSG Rule: Open (3389).
+  NSG Rule: Open (5985).
+  NSG Rule: Open (80).
+  NSG Rule: Closed, all.
+Public IP: 21.32.43.54
+Size: Standard_DS1_v2
+$
+```
 
 #### With "Just Do It"
 
