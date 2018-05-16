@@ -88,7 +88,7 @@ The following are customer verbatims (bolding applied post):
 
 Customers were asked to rank certain features, and these were the results.
 
-![Feature Ranking](FeatureRanking.png)
+![Feature Ranking](index/FeatureRanking.png)
 
 ### 9 Please describe a new feature (e.g., create VM convenience cmdlets) or design (e.g., -AsJob support) that recently delighted you in your experience with Azure PowerShell.
 
