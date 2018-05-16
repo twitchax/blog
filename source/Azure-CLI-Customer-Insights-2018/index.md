@@ -95,6 +95,26 @@ The following are customer verbatims (bolding applied post):
 * Feature: We believe type of customers will be successful solving problem using feature while doing job-to-be-done.  We will know they were successful when we see criteria.
 * Business: We believe type of customers will realize business outcome by employing business action.  We will know this to be true when we see criteria.
 
+### Problem: We believe Azure CLI customers are frustrated by the rollup package because it is getting too big and unwieldy.
+
+Customer notes:
+* "The long list of command modules in CLI is 'kind of expected'.  However, the long list of services is 'a little intimidating'.  Instead of removing commands modules, maybe make a 'simple help' that is pared down.  'Maybe by default `az` gives a smaller list.'"
+* Other customers echoed that the Core should continue to be big, but maybe a have "simple help" that is pared down.
+
+### Problem: We believe Azure CLI customers are frustrated when finding commands because documentation and discoverability is lacking.
+
+Customer notes:
+* Search official documentation, Stack Overflow. What search string in Google: "Azure CLI provision elastic database".
+* Stack overflow primary go to for many customers.
+* "Very big on written tutorials.  Likes to "block of text, and then the command".  A lot of her students prefer videos to written documentation."
+* Some customers reported preferring better in-product documentation.
+
+### Problem: We believe Azure CLI customers are frustrated because they are overwhelmingly using scripts and the CLI is currently built more for interactive use.
+
+Customer notes:
+* A little of both, but power users are definitely using scripts.
+* Most customers have not heard of or used `az interactive`, but many thought it was cool when shown to them.
+
 ## Customer Summary
 
 ## Next Steps
