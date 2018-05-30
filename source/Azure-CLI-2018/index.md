@@ -4,7 +4,7 @@ date: 2018-05-16 00:00:0
 ---
 <!-- toc -->
 
-# Azure CLI Customer Insights (201805)
+# Azure CLI 2018
 
 ## Survey Results
 

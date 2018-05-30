@@ -4,7 +4,7 @@ date: 2018-05-16 00:00:0
 ---
 <!-- toc -->
 
-# Azure PowerShell Customer Insights (201805)
+# Azure PowerShell 2018
 
 ## Survey Results
 
