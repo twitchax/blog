@@ -1,4 +1,4 @@
-title: Azure CLI Customer Insights 2018
+title: Azure CLI 2018
 author: Aaron Roney
 date: 2018-05-16 00:00:0
 ---
@@ -97,11 +97,15 @@ The following are customer verbatims (bolding applied post):
 
 ### Problem: We believe Azure CLI customers are frustrated by the rollup package because it is getting too big and unwieldy.
 
+**Invalidated**: customers are not frustrated by the number of command modules or the size, in general, but they are frustrated by an inability to sift through the documentation and commands to find the specific commands they need.
+
 Customer notes:
 * "The long list of command modules in CLI is 'kind of expected'.  However, the long list of services is 'a little intimidating'.  Instead of removing commands modules, maybe make a 'simple help' that is pared down.  'Maybe by default `az` gives a smaller list.'"
 * Other customers echoed that the Core should continue to be big, but maybe a have "simple help" that is pared down.
 
-### Problem: We believe Azure CLI customers are frustrated when finding commands because documentation and discoverability is lacking.
+### Problem: We believe Azure CLI customers are frustrated when finding commands because documentation and discoverability are lacking.
+
+**Validated**: customers generally report an inability to reach a workable solution in the product or documentation alone, and they typically go somewhere like Stack Overflow for quick solutions.
 
 Customer notes:
 * Search official documentation, Stack Overflow. What search string in Google: "Azure CLI provision elastic database".
@@ -110,6 +114,8 @@ Customer notes:
 * Some customers reported preferring better in-product documentation.
 
 ### Problem: We believe Azure CLI customers are frustrated because they are overwhelmingly using scripts and the CLI is currently built more for interactive use.
+
+**Invalidated**: there are customers along the entire spectrum, and we should tailor experiences to customers from infancy to maturity.
 
 Customer notes:
 * A little of both, but power users are definitely using scripts.
@@ -121,6 +127,78 @@ Customer notes:
 
 ### Team Brainstorming
 
-### Customer Interviews
+* Problem Hypotheses:
+    * Customers are frustrated with some packages (dep, rpm, yum) because it brings in Python 3 unnecessarily.
+* Brand New Features:
+    * `az hub`: cli-based dashboard for IT Pros, monitoring, deployment status.  Maybe not live...just print useful pre-set stuff.
+    * `--example` that can query samples from GitHub.  As in, keep the examples in `--help`, but also allow the user to query against GitHub samples.
+    * "Broadcast" feature in the product that can query an endpoint and display announcements (e.g., breaking or major change announcements).
+    * "Update Broadcast" that lets people know that updates are available.
+    * Print release notes on install.
+    * Add an easter egg for some event.
+    * CLI leveraged as an SDK.  Call CLI commands from Python.
+* Improvements:
+    * Better logging between none and `--debug` for **troubleshooting**.  `--debug` is too verbose and `--verbose` is, ironically, not verbose enough.
+    * Status code differentiation is not consistent.  The error messages are often not descriptive enough.
+    * Conditional creates: "create this thing if it does not exist".
+    * `az find` improvements: better spell checking.
+    * Opt-in to autocorrect.  That is, `az newtork` would automatically assume `az network` if you turned the feature on.
+    * Allow `rg/name` for an `--id` field on `show` commands.
+    * `az aladdin query`: query aladdin for doc suggestions.
+* Infrastructure:
+    * There should be a common pattern for CRUD operations across the product.  Possible make this **fully automated**.  Evaluate internal limitations and recognize problems that make this untenable.
+    * Better mechanisms for managing customer interest in feature ideas, etc.  GitHub, UserVoice.  Announcement or feature repository?
+    * KILL PYTHON 2.
+* Documentation:
+    * Stack Overflow Day: everyone go in and self answer questions about certain scenarios.
+    * Better documentation for `az interactive` and `az alias` to drive usage.
+* Telemetry:
+    * Failure telemetry is difficult to understand.  Johan and Troy to sync.
+* VS Code / Cloud Shell:
+    * Invest into VS Code extension from our team.
+    * Put `az interactive` in VS Code.
 
-### HCI Interviews
+### Problem/Concept Interviews
+
+June 2018.
+
+### HCI/Feature Interviews
+
+September 2018.
+
+## Titanium Themes
+
+**Azure CLI Team to provide feedback on the theme titles, and I will fill them in.**
+
+All items here are _themes_: i.e., specific items are pending customer feedback.
+
+### 1 Customer Engagement
+
+Theme Ideas:
+* Increase Customer Interviews.
+* Problem, Concept, and Feature Hypothesis Testing.
+* Community Standup Engagement.
+
+### 2 Feature/Command Discovery
+
+Theme Ideas:
+* Better `az find`.
+* Feature broadcasts in product.
+* Aladdin integration.
+
+### 3 Documentation
+
+Theme Ideas:
+* Stack Overflow Day.
+* More examples in command reference.
+* Better documentation of features (e.g., `az interactive`, `az find`).
+
+### 4 Convenience and Consistency
+
+Theme Ideas:
+* Better error code resolution.
+* Expand `rg/name` for `--id`.
+* Autogeneration of CRUD operations.
+* A command that has a "dashboard" (similar to Portal Dashboard, but selected vis monitor commands in terminal).
+
+### 5 Get Feedback from Team for a Final One

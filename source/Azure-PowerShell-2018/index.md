@@ -1,4 +1,4 @@
-title: Azure PowerShell Customer Insights 2018
+title: Azure PowerShell 2018
 author: Aaron Roney
 date: 2018-05-16 00:00:0
 ---
@@ -124,7 +124,11 @@ The following are customer verbatims (bolding applied post):
 
 ### Problem: We believe Azure Powershell customers are frustrated by the rollup package because it is getting too big and unwieldy.
 
+**Invalidated**: customers are not frustrated by the number of modules or the size, in general, but they are frustrated by an inability to sift through the documentation and cmdlets to find the specific cmdlets they need.
+
 ### Problem: We believe Azure PowerShell customers encounter difficulty when using documentation in Azure PowerShell because: (a) bad in-product samples, (b) too many commands, (c) too flat of structure, (d) poor search capabilities, etc.
+
+**Validated**: customers generally report an inability to reach a workable solution in the product or documentation alone, and they typically go somewhere like Stack Overflow for quick solutions.
 
 * Most customers continue to use Google, then StackOverflow.
 * In-product documentation is lacking, leading to customers using Google, etc.
@@ -133,12 +137,16 @@ The following are customer verbatims (bolding applied post):
 
 ### Problem: We believe Azure PowerShell customers want even more convenience commands, and they want them to extend to `Update-` scenarios.
 
+**Validated**: customers continue to show high interest in improvements to cmdlet and overall product convenience.
+
 * Customers want more convenience.
 * Resource group convenience commands.
 * Some comments about mor Monitor, Storage, Cognitive Services, and CosmosDb support.
 * More tab completion.
 
 ### Problem: We believe that customers are disheartened when documentation and samples prioritize Azure CLI.
+
+**Validated**: customers, especially those steeped in PowerShell, find the lack of service documentation for Azure PowerShell concerning, as most of the documentation is tailored to Azure CLI, by default.  Azure PowerShell seems like an after-thought in service team documentation.
 
 * "it seems like Azure CLI is the thing everything is always used."
 * "I'm not even sure if Azure PowerShell exists anymore"
@@ -151,6 +159,54 @@ The following are customer verbatims (bolding applied post):
 
 ### Team Brainstorming
 
-### Customer Interviews
+### Problem/Concept Interviews
 
-### HCI Interviews
+June 2018.
+
+### HCI/Feature Interviews
+
+September 2018.
+
+## Titanium Themes
+
+**Azure PowerShell Team to provide feedback on the theme titles, and I will fill them in.**
+
+All items here are _themes_: i.e., specific items are pending customer feedback.
+
+### 1 Realization of `Az`
+
+Theme Ideas:
+* NET Standard module.
+* Doc updates.
+* Aliases to old cmdlets.
+
+**Need to put the full plan here. :)**
+
+### 2 Customer Engagement
+
+Theme Ideas:
+* Increase Customer Interviews.
+* Problem, Concept, and Feature Hypothesis Testing.
+* Community Standup Engagement.
+
+### 3 Feature/Cmdlet Discovery
+
+Theme Ideas:
+* Possibly invest in a command similar to `az find`?
+* Feature broadcasts in product.
+* Aladdin integration.
+
+### 4 Documentation
+
+Theme Ideas:
+* Service team documentation needs to cover Azure PowerShell.
+* Stack Overflow Day.
+* More examples in command reference.
+* Better documentation of features (e.g., `-AsJob`, tab completion, etc.).
+
+### 5 Convenience and Consistency
+
+Theme Ideas:
+* Autogeneration of CRUD operations.
+* Monitor convenience commands.
+* A command that has a "dashboard" (similar to Portal Dashboard, but selected vis monitor commands in terminal).
