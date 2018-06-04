@@ -159,6 +159,42 @@ The following are customer verbatims (bolding applied post):
 
 ### Team Brainstorming
 
+* Customer Hypotheses:
+    * Customers are using versions that are so old, they are unaware of sovereign cloud issues.
+* Problem Hypotheses:
+    * Customers are frustrated with lacking support for sovereign cloud management.
+    * Customers are frustrated when using a machine with multiple AzureRM versions installed due to version loading precedence in PowerShell.
+* Brand New Features:
+    * `Start-AzureRmCommandCenter`: like dashboard for Portal, but like `htop`.
+    * Fuzzy search for command names and command descriptions in cmdlet form, maybe `Find-AzureRmCommand`.
+    * Cross-service providers with awesome `ls`ing (e.g., `ls` in a vnet could actually list resources attached to the vnet).
+* Improvements:
+    * Resource Id completers, and "linked" completers between the pieces of a resource Id.
+    * `My-Cmd -ResourceGroupName rg -Name name` => `My-Cmd -Id rg/name`.
+        * We need questions to tease out what customers would want here.  "Validated hypothesis is that it sucks to work with Ids and their component parts".
+    * [In response to above hypothesis] Azure PowerShell should have "stub" cmdlets after breaking changes when cmdlets are removed to notify customers.
+    * Convenience cmdlets with high level of specificity (e.g., `New-AzureRmWindowsVm`).
+    * Better alias strategy: that is, come up with an "alias formula" that is consistent (e.g., but not limited to, `Get-AzureRmVM` => `gazvm`).
+* Infrastructure:
+* Documentation:
+    * Stack Overflow Day.`
+    * Ensure that we have good reference examples.
+    * Ensure that we have good service team PowerShell documentation (from customer feedback).
+    * Up-to-date model documentation to go along with reference documentation.
+    * Start a medium blog series that actually works.
+    * Add aliases to documentation (this should _possibly_ be done the right way [e.g., with PowerShell/PlatyPS cooperation]).
+* Telemetry:
+* VS Code / Cloud Shell:
+* PowerShell Core:
+    * `Install-Module` hook for `OnInstallScript`.
+    * There should be an actually good `Uninstall-Module`.
+    * There should be an actually good `Update-Module`.
+    * There should be some notification system for `PowerShellGet` that informs user of updates to modules.
+    * Work with PowerShell team to "bless" third party utilities that make the customer experience better.
+    * `Verb-Noun` continues to be the worst syntax on the planet: plz fix.
+* Azure Automation:
+    * Better versioning/upgrading in Azure Automation: get rid of older versions.
+
 ### Problem/Concept Interviews
 
 June 2018.
@@ -180,7 +216,28 @@ Theme Ideas:
 * Doc updates.
 * Aliases to old cmdlets.
 
-**Need to put the full plan here. :)**
+#### `Az` Plan
+
+* Ship new rollup package (i.e., `Az`) and cmdlet names (e.g., `New-AzVm`).
+* New modules will be built against **NETStandard 2.0+** for **PowerShell 6** and PowerShell 5.1 Compatibility.
+* **Refactoring** of **module layout** for better consistency and conciseness.
+* All cmdlets will have `Az` => `AzureRM` aliases for _at least_ one year.
+* Planning to ship end of **August 2018**.
+* Awareness/Announcements
+    * Talk about the move in June **Community Standup**.
+    * Add a notice to landing page for **Azure PowerShell Conceptual Docs**.
+    * **Blog post** at ship time.
+    * `AzureRM` will still be usable.
+* `AzureRM` Deprecation
+    * `AzureRM` will be usable, but not developed.
+    * Critical fixes only.
+    * **Visual Studio** will need to be notified and upgraded.
+    * **Automation** will need to be notified and upgraded.
+    * **Azure Stack** will need to be notified and upgraded.
+* Documentation
+    * **All** Azure PowerShell Reference and Conceptual Documentation must be updated.
+    * **Profile**, **ARM**, and **Compute** Docs to be updated without exception.
+    * All other service teams should be updated at the direction of the doc team to the greatest extent possible.
 
 ### 2 Customer Engagement
 

@@ -137,6 +137,7 @@ Customer notes:
     * Print release notes on install.
     * Add an easter egg for some event.
     * CLI leveraged as an SDK.  Call CLI commands from Python.
+    * Add `--quiet` to show/list commands that only returns `--query [].id -o tsv`.
 * Improvements:
     * Better logging between none and `--debug` for **troubleshooting**.  `--debug` is too verbose and `--verbose` is, ironically, not verbose enough.
     * Status code differentiation is not consistent.  The error messages are often not descriptive enough.
