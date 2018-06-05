@@ -175,7 +175,7 @@ The following are customer verbatims (bolding applied post):
     * Better alias strategy: that is, come up with an "alias formula" that is consistent (e.g., but not limited to, `Get-AzureRmVM` => `gazvm`).
 * Infrastructure:
 * Documentation:
-    * Stack Overflow Day.`
+    * Stack Overflow Day.
     * Ensure that we have good reference examples.
     * Ensure that we have good service team PowerShell documentation (from customer feedback).
     * Up-to-date model documentation to go along with reference documentation.
