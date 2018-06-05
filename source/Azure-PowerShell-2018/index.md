@@ -151,9 +151,7 @@ The following are customer verbatims (bolding applied post):
 * "it seems like Azure CLI is the thing everything is always used."
 * "I'm not even sure if Azure PowerShell exists anymore"
 * "I use Azure CLI because that's what the docs tell me to use" 
-* "there are many things that seemed to cause it to be installed" 
-
-## Customer Summary
+* "there are many things that seemed to cause it to be installed"
 
 ## Next Steps
 

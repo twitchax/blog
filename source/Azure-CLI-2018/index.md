@@ -121,8 +121,6 @@ Customer notes:
 * A little of both, but power users are definitely using scripts.
 * Most customers have not heard of or used `az interactive`, but many thought it was cool when shown to them.
 
-## Customer Summary
-
 ## Next Steps
 
 ### Team Brainstorming
