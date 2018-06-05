@@ -161,6 +161,53 @@ Customer notes:
 
 June 2018.
 
+* Problem: 
+    * We believe Azure CLI customers are frustrated when updating/installing Azure CLI because of ... 
+        * Bad packaging.
+        * Documentation issues.
+        * Limited install options.
+        * Too many install options.
+    * We believe Azure CLI customers are frustrated when finding commands because documentation and discoverability are lacking.
+    * We believe Azure CLI customers are frustrated when authoring reliable and consistent scripts because ... 
+        * Tracing is bad.
+        * Diagnostic output is bad.
+        * Status codes are inconsistent.
+        * Too many breaking changes.
+        * Common operations are sometimes inconvenient or taxing.
+    * We believe Azure CLI customers are frustrated with the number of documentation options because there is not central hub.
+    * We believe Azure CLI customers are frustrated by inconsistent table output and lack of information because it detracts from the human-readable experience.
+        * Is it a human-readability problem?
+        * Is it the lack of consistency?
+        * Is it the lack of property information?
+        * IS JSON too verbose?
+        * **What would be the most readable format for complex data?**
+    * We believe Azure CLI customers are frustrated by `--query` because it is too difficult to use.
+    * We believe Azure CLI customers have issues /discovering/installing extensions because ... 
+        * Different versions?
+        * Latest?
+        * Discoverability?
+        * How do you react to issues in extensions?
+    * Knack?
+* Concept:
+    * We believe that X number more Stack Overflow Question/Answers will solve the discoverability problem and be valuable to type of customers while writing scripts.  **We will know this to be true when we see criteria.**
+    * We believe that in-product documentation pointing to conceptual service documentation will improve customer success.
+    * We believe that `--help-long` in-product documentation will improve customer success when discovering command usage ...
+        * How many pages?
+        * How many levels?
+    * Update broadcasts.
+        * Would you like to see update notifications?
+        * How would you react to notifications?
+        * Would you like to see product announcement notifications?
+* Questions:
+    * What are the most common tasks that you use in CLI, and what is noise?  Should CLI be an acquire-as-you-go product?
+    * What would be the most useful thing we could add to documentation for your use cases?
+    * **When a customer starts using Azure CLI, what is their journey?**
+    * [Aaron: add this to PowerShell] What Azure PowerShell features delight you that you would like to see in Azure CLI?
+    * If you keep updating, why do you stay up-to-date?  Habit?  Needed features?  Otherwise, do you install specific versions?
+    * If you work with other Clouds, how do you do that work in Azure CLI or other utilities?
+
+### Knack Interviews
+
 ### HCI/Feature Interviews
 
 September 2018.
