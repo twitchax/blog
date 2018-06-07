@@ -197,6 +197,44 @@ The following are customer verbatims (bolding applied post):
 
 June 2018.
 
+* Problem:
+    * We believe that customers are confused/frustrated by confusion between `Update`/`Set` scenarios.
+        * Require that every verb _always_ means the same thing.
+    * We believe that customers are frustrated by the lack of consistency in support for `Update` (`PATCH`).
+        * Require that all three verbs are implemented?
+    We believe Azure PowerShell performance degrades customer experience.
+* Concept:
+    * We believe that {completers...} will solve interactive usability issues and be valuable to type of customers while using Azure PowerShell interactively.  We will know this to be true when we see criteria.
+        * Resource by parts: hitting tab on either `-ResourceId` or `-ResourceGroupName`/`-Name`.
+        * Allowing `rg/name` for `-ResourceId`.
+        * An extension of this requires that sub resource completion is also consistent.
+    * We believe that VS Code intellisense, etc. will solve script writing issues and be valuable to customers writing Azure PowerShell scripts.  We will know this to be true when we see criteria.
+        * Tab completion in intellisense.
+        * Snippets for common tasks.
+        * Chasing down bugs with PowerShell Team.
+    * We believe that shortening cmdlet names will make writing scripts easier...
+    * We believe that generated aliases will improve customer experience when using Azure PowerShell interactively.
+        * `Get-AzureRmVM` => `gvm`.
+        * `Connect-AzureRmAccount` => `caa`?
+        * Customers want this to be prefixed with `az`.
+    * Aaron cannot type. :()
+* Feature:
+    * We believe that wildcard support will solve query issues and be valuable to customers getting/removing sets of resources.  We will know this to be true when we see criteria.
+        * Example: `Get-AzureRmVM -Name MyVm*`.
+        * Remove scenarios?
+        * Update scenarios?
+        * Accept list?  Example: `Get-AzureRmVM -Name MyVm*,Lol`.
+* Questions:
+    * What is the right thing for async scenarios? => make this a feature hypothesis
+        * What should the default be?
+        * `-Wait`/`-NoWait`?
+        * If `-NoWait`, can customer then "rehydrate" the Job (i.e., `Get-JobForExistingOperation`).
+    * Should we have "scopeable" aliases and cmdlet names?  For example, set scope to Compute and all aliases are Compute-only?
+    * How do people even get started with Azure PowerShell?  How do they even get onboarded to Azure?
+    * Stack rank inconvenient scenarios.
+    * Make a hypothesis for a cmdlet or query helper that is kind of like `Find-AzureRmHelp "Create a vm."`.
+    * Acquisition experience!
+
 ### HCI/Feature Interviews
 
 September 2018.
@@ -236,6 +274,36 @@ Theme Ideas:
     * **All** Azure PowerShell Reference and Conceptual Documentation must be updated.
     * **Profile**, **ARM**, and **Compute** Docs to be updated without exception.
     * All other service teams should be updated at the direction of the doc team to the greatest extent possible.
+    * P0:
+        * Profile.
+        * Resources.
+        * Compute.
+        * Network.
+        * Storage Management.
+        * Websites.
+        * KeyVault.
+        * Tags.
+        * Automation.
+    * P1:
+        * AKS.
+        * Redis Cache.
+        * Service Fabric.
+        * SQL.
+        * Storage Data.
+        * Service Bus.
+    * P2: 
+        * Azure Backup.
+        * Azure Batch.
+        * DNS.
+        * Event Grid.
+        * Event Hub.
+        * Machine Learning.
+        * Media.
+        * Notification Hubs.
+        * Recovery Services.
+        * Relay.
+        * Scheduler.
+    * P3: The rest!
 
 ### 2 Customer Engagement
 
