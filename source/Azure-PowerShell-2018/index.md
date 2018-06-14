@@ -234,6 +234,7 @@ June 2018.
     * Stack rank inconvenient scenarios.
     * Make a hypothesis for a cmdlet or query helper that is kind of like `Find-AzureRmHelp "Create a vm."`.
     * Acquisition experience!
+    * **For cmdlets that create "jobs" in Azure, should we wrap those operations and track them as Jobs in PowerShell?**
 
 ### HCI/Feature Interviews
 
